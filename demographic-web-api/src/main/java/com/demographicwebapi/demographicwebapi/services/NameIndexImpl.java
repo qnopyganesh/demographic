@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demographicwebapi.demographicwebapi.models.NameIndex;
-import com.demographicwebapi.demographicwebapi.repositories.NameIndexRepo;
+import com.demographicwebapi.demographicwebapi.repositories.UserIndexRepo;
 
 @Service
 public class NameIndexImpl implements NameIndexService {
 
     @Autowired
-    private NameIndexRepo nameIndexDao;
+    private UserIndexRepo nameIndexDao;
 
 
     @Override

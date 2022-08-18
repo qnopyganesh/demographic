@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.demographicwebapi.demographicwebapi.models.NameIndex;
 
 @Repository
-public interface NameIndexRepo extends JpaRepository<NameIndex,Long> {
+public interface UserIndexRepo extends JpaRepository<NameIndex,Long> {
     
 }
