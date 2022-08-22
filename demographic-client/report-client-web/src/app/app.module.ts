@@ -21,6 +21,7 @@ import { SampleModule } from "app/main/sample/sample.module";
 import { EncodeComponent } from "./encode/encode.component";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { FormsModule } from "@angular/forms";
+import { SearchScreenComponent } from "./search-screen/search-screen.component";
 
 const appRoutes: Routes = [
   {
@@ -38,13 +39,17 @@ const appRoutes: Routes = [
     component: EncodeComponent,
   },
   {
+    path: "search",
+    component: SearchScreenComponent,
+  },
+  {
     path: "**",
     redirectTo: "/pages/miscellaneous/error", //Error 404 - Page not found
   },
 ];
 
 @NgModule({
-  declarations: [AppComponent, EncodeComponent],
+  declarations: [AppComponent, EncodeComponent, SearchScreenComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

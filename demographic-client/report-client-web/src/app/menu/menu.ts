@@ -25,4 +25,12 @@ export const menu: CoreMenu[] = [
     icon: "file",
     url: "encode",
   },
+  {
+    id: "search",
+    title: "Search",
+    translate: "search",
+    type: "item",
+    icon: "file",
+    url: "search",
+  },
 ];
