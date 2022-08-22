@@ -6,16 +6,85 @@ import org.springframework.stereotype.Service;
 import com.demographicwebapi.demographicwebapi.models.Algo;
 import com.demographicwebapi.demographicwebapi.repositories.AlgoRepo;
 
+// import org.apache.commons.codec.EncoderException;
+// import org.apache.commons.codec.StringEncoder;
+// import org.apache.commons.codec.language.Caverphone;
+import org.apache.commons.codec.language.Caverphone1;
+import org.apache.commons.codec.language.Caverphone2;
+import org.apache.commons.codec.language.ColognePhonetic;
+import org.apache.commons.codec.language.DaitchMokotoffSoundex;
+import org.apache.commons.codec.language.DoubleMetaphone;
+import org.apache.commons.codec.language.MatchRatingApproachEncoder;
+import org.apache.commons.codec.language.Metaphone;
+import org.apache.commons.codec.language.Nysiis;
+import org.apache.commons.codec.language.RefinedSoundex;
+import org.apache.commons.codec.language.Soundex;
+
 @Service
 public class AlgoServiceImpl implements AlgoService {
     @Autowired
     private AlgoRepo algoRepo;
 
-
     @Override
     public Algo getAlgo(String name) {
         return algoRepo.findByName(name).get(0);
     }
-    
-    
+
+    @Override
+    public String encodeString(String name, String algoName) {
+        String encodedName = "";
+        algoName = algoName.toLowerCase();
+
+        if (algoName.equals("caverphone1")) {
+            Caverphone1 encoder = new Caverphone1();
+            encodedName = encoder.encode(name);
+        }
+
+        else if (algoName.equals("caverphone2")) {
+            Caverphone2 encoder = new Caverphone2();
+            encodedName = encoder.encode(name);
+        }
+
+        else if (algoName.equals("colognephonetic")) {
+            ColognePhonetic encoder = new ColognePhonetic();
+            encodedName = encoder.encode(name);
+        }
+
+        else if (algoName.equals("daitchmokotoffsoundex")) {
+            DaitchMokotoffSoundex encoder = new DaitchMokotoffSoundex();
+            encodedName = encoder.encode(name);
+        }
+
+        else if (algoName.equals("doublemetaphone")) {
+            DoubleMetaphone encoder = new DoubleMetaphone();
+            encodedName = encoder.encode(name);
+        }
+
+        else if (algoName.equals("matchratingapproachencoder")) {
+            MatchRatingApproachEncoder encoder = new MatchRatingApproachEncoder();
+            encodedName = encoder.encode(name);
+        }
+
+        else if (algoName.equals("metaphone")) {
+            Metaphone encoder = new Metaphone();
+            encodedName = encoder.encode(name);
+        }
+
+        else if (algoName.equals("nysiis")) {
+            Nysiis encoder = new Nysiis();
+            encodedName = encoder.encode(name);
+        }
+
+        else if (algoName.equals("refinedsoundex")) {
+            RefinedSoundex encoder = new RefinedSoundex();
+            encodedName = encoder.encode(name);
+        }
+
+        else if (algoName.equals("soundex")) {
+            Soundex encoder = new Soundex();
+            encodedName = encoder.encode(name);
+        }
+
+        return encodedName;
+    }
 }
