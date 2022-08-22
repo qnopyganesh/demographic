@@ -43,6 +43,10 @@ public class NameIndex {
 		this.json = json;
 		this.algo = algo;
 	}
+   public NameIndex(){
+	   
+   }
+
 	
 	
 
