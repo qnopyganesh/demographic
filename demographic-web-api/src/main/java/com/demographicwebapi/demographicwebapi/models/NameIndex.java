@@ -25,29 +25,30 @@ public class NameIndex {
 	String name;
 	
 	@Column(name = "type")
-	String type;
+	char type;
 	
-	@Column(name = "encode_type")
-	String encode_type;
+	@Column(name = "encode")
+	String encode;
+
+
+	@Column(name = "name_json")
+	String name_json;
 	
-	@Column(name = "json")
-	String json;
+	@Column(name = "encode_json")
+	String encode_json;
 	
 	@Column(name = "algo")
 	Long algo;
-	
-	public NameIndex(String name , String encode_type, String type, String json , Long algo){
+
+	public NameIndex(String name, char type, String encode, String name_json, String encode_json, Long algo) {
 		this.name = name;
-		this.encode_type = encode_type;
 		this.type = type;
-		this.json = json;
+		this.encode = encode;
+		this.name_json = name_json;
+		this.encode_json = encode_json;
 		this.algo = algo;
 	}
-   public NameIndex(){
-	   
-   }
 
-	
-	
+	public NameIndex(){}
 
 }

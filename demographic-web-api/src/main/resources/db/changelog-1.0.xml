@@ -10,8 +10,9 @@
 			id bigint not null,
 			name varchar(4000),
 			type varchar(1),
-			encode_type varchar(1),
-			json_name varchar(4000),
+			encode varchar(4000),
+			name_json varchar(4000),
+			encode_json varchar(4000),
 			algo bigint not null,
 			primary key (id)
 			);

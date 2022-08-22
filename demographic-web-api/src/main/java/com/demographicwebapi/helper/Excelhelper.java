@@ -1,120 +1,64 @@
 package com.demographicwebapi.helper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demographicwebapi.demographicwebapi.models.NameIndex;
+import com.google.gson.Gson;
 
 public class Excelhelper {
     public static boolean checkExcelFormat(MultipartFile file) {
 
         // method to check whether the uploaded file is csv or not
         String contentType = file.getContentType();
-        if (contentType.equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
+        if (contentType.equals("text/csv")) {
             return true;
         } else {
             return false;
         }
     }
 
-    public static List<NameIndex> convertExcelToListOfNameIndex(InputStream is) {
+    public static List<NameIndex> convertExcelToListOfNameIndex(InputStream is, Long algoId, boolean isSurname,
+            String fileName) {
         List<NameIndex> list = new ArrayList<>();
-        try {
-            XSSFWorkbook workbook = new XSSFWorkbook(is);
-            XSSFSheet sheet = workbook.getSheet("data");
-            int rowNumber = 0;
-            Iterator<Row> iterator = sheet.iterator();
-
-            while (iterator.hasNext()) {
-                Row row = iterator.next();
-
-                if (rowNumber == 0) {
-                    rowNumber++;
-                    continue;
-                }
-                Iterator<Cell> cells = row.iterator();
-                String[] names = new String[11];
-                int cid = 0;
+        try (
+                BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withAllowMissingColumnNames());) {
+            List<CSVRecord> csvRecords = csvParser.getRecords();
+            int totalNumberofRow = csvRecords.size();
+            for (int i = 1; i < totalNumberofRow; i += 2) {
                 NameIndex n = new NameIndex();
-                while (cells.hasNext()) {
-                    Cell cell = cells.next();
-                    if(rowNumber%2==1)
-                    {
-                        switch (cid) {
-                            case 0:
-                                break;
-    
-                            case 1:
-                                n.setId((long) cell.getNumericCellValue());
-                                break;
-                            case 2:
-                                names[0] = cell.getStringCellValue();
-                                break;
-                            case 3:
-                                names[1] = cell.getStringCellValue();
-                                break;
-                            case 4:
-                                names[2] = cell.getStringCellValue();
-                                break;
-                            case 5:
-                                names[3] = cell.getStringCellValue();
-                                break;
-    
-                            case 6:
-                                names[4] = cell.getStringCellValue();
-                                break;
-    
-                            case 7:
-                                names[5] = cell.getStringCellValue();
-                                break;
-    
-                            case 8:
-                                names[6] = cell.getStringCellValue();
-                                break;
-    
-                            case 9:
-                                names[7] = cell.getStringCellValue();
-                                break;
-    
-                            case 10:
-                                names[8] = cell.getStringCellValue();
-                                break;
-    
-                            case 11:
-                                names[9] = cell.getStringCellValue();
-                                break;
-    
-                            default:
-                                break;
-                        }
-                        String str = Arrays.toString(names);
-                        n.setJson(str);
-                    }
-                    else{
-                        switch(cid){
-                            case 0:
-                                break;
-                        }
-
-                    }
-                    rowNumber++;
-                    
+                CSVRecord curRecord = csvRecords.get(i);
+                CSVRecord encodedRecord = csvRecords.get(i + 1);
+                n.setName(curRecord.get(2));
+                n.setEncode(encodedRecord.get(2));
+                ArrayList<String> name_jsonArray = new ArrayList<>();
+                ArrayList<String> encode_jsonArray = new ArrayList<>();
+                for(int j = 3; j < curRecord.size() ; j ++ ){
+                    name_jsonArray.add(curRecord.get(j));
+                    encode_jsonArray.add(encodedRecord.get(j));
                 }
-
+                Gson gson = new Gson();
+                n.setName_json(gson.toJson(name_jsonArray));
+                n.setEncode_json(gson.toJson(encode_jsonArray));
+                n.setAlgo(algoId);
+                n.setType(isSurname?'s':'f');
+                list.add(n);
+                
             }
 
         } catch (Exception e) {
-
+            System.out.println(e);
         }
+
         return list;
     }
 }

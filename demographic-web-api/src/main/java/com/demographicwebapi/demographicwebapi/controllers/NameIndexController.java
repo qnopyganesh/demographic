@@ -2,6 +2,7 @@ package com.demographicwebapi.demographicwebapi.controllers;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/NameIndex")
 public class NameIndexController {
 
+    @Autowired
     private NameIndexService nameIndexService;
 
     @RequestMapping("/")
@@ -28,10 +30,10 @@ public class NameIndexController {
     }
 
     @GetMapping("/get/{algo}/{name}")
-    public String fetchSearchResults(
+    public ResponseEntity<?> fetchSearchResults(
             @PathVariable("algo") String algo,
             @PathVariable("name") String name) {
-        return name;
+        return ResponseEntity.ok(nameIndexService.fetchResults(name, algo));
     }
 
     @PostMapping(value = "/upload")

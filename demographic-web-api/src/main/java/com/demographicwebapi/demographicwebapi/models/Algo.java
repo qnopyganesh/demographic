@@ -24,4 +24,10 @@ public class Algo {
 	
 	@Column(name = "name")
 	String name;
+
+	public Algo(String name) {
+		this.name = name;
+	}
+
+	public Algo(){}
 }
