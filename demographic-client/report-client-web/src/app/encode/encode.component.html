@@ -5,10 +5,11 @@
     class="form-control"
     id="basicInput"
     placeholder="Jainish"
+    [(ngModel)]="name"
   />
 </div>
 
-<div class="btn-group">
+<!-- <div class="btn-group">
   <div ngbDropdown>
     <button
       ngbDropdownToggle
@@ -17,20 +18,73 @@
       id="dropdownMenuButton100"
       rippleEffect
     >
-      Primary
+      Caverphone1
     </button>
     <div ngbDropdownMenu aria-labelledby="dropdownMenuButton100">
-      <a ngbDropdownItem href="javascript:void(0)">Option 1</a>
-      <a ngbDropdownItem href="javascript:void(0)">Option 2</a>
-      <a ngbDropdownItem href="javascript:void(0)">Option 3</a>
+      <a ngbDropdownItem href="javascript:void(0)">Caverphone1 </a>
+      <a ngbDropdownItem href="javascript:void(0)">Metaphone</a>
+      <a ngbDropdownItem href="javascript:void(0)">Soundex</a>
     </div>
   </div>
-</div>
-<div class="my-2">
-  <button type="button" class="btn btn-primary" rippleEffect>Primary</button>
-</div>
+</div> -->
 
+<!-- import org.apache.commons.codec.EncoderException;
+import org.apache.commons.codec.StringEncoder;
+import org.apache.commons.codec.language.Caverphone;
+import org.apache.commons.codec.language.Caverphone1;
+import org.apache.commons.codec.language.Caverphone2;
+import org.apache.commons.codec.language.ColognePhonetic;
+import org.apache.commons.codec.language.DaitchMokotoffSoundex;
+import org.apache.commons.codec.language.DoubleMetaphone;
+import org.apache.commons.codec.language.MatchRatingApproachEncoder;
+import org.apache.commons.codec.language.Metaphone;
+import org.apache.commons.codec.language.Nysiis;
+import org.apache.commons.codec.language.RefinedSoundex;
+import org.apache.commons.codec.language.Soundex; -->
+
+<div class="d-flex">
+  <div class="form-group selectBox mr-3">
+    <label for="basicSelect">Select Algorithm</label
+    ><select
+      id="basicSelect"
+      class="form-control"
+      [(ngModel)]="selectedAlgorithm"
+    >
+      <option value="Metaphone" selected>Metaphone</option>
+      <option
+        *ngFor="let algorithm of algorithms"
+        value="{{ algorithm.value }}"
+      >
+        {{ algorithm.value }}
+      </option>
+    </select>
+  </div>
+  <div class="my-2">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="encode()"
+      rippleEffect
+    >
+      Encode
+    </button>
+  </div>
+</div>
 <div class="form-group">
   <label for="basicInput">Encoded Value</label>
-  <input type="text" class="form-control" id="basicInput" />
+  <input
+    #clipboardValue
+    type="text"
+    class="form-control"
+    id="basicInput"
+    [(ngModel)]="encodedText"
+  />
 </div>
+
+<button
+  class="btn btn-outline-primary"
+  (click)="copyCode(clipboardValue.value)"
+  rippleEffect
+>
+  Copy!
+</button>
