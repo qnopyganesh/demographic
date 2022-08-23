@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping("/NameIndex")
-@CrossOrigin
+@CrossOrigin(exposedHeaders = "Access-Control-Allow-Origin")
 public class NameIndexController {
 
     @Autowired
@@ -31,11 +31,17 @@ public class NameIndexController {
         return "HelloWorld";
     }
 
-    @GetMapping("/get/{algo}/{name}")
+    @GetMapping("/get/{algo}/{name}/{Surname}")
     public ResponseEntity<?> fetchSearchResults(
             @PathVariable("algo") String algo,
-            @PathVariable("name") String name) {
-        return ResponseEntity.ok(nameIndexService.fetchResults(name, algo));
+            @PathVariable("name") String name,
+            @PathVariable("Surname") String surname
+            ) {
+                boolean isSurname = false;
+                if(surname.equals("true")){
+                    isSurname = true;
+                }
+        return ResponseEntity.ok(nameIndexService.fetchResults(name, algo,isSurname));
     }
 
     @PostMapping(value = "/upload")

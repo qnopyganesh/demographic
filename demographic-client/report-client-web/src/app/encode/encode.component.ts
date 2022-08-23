@@ -15,7 +15,7 @@ export class EncodeComponent implements OnInit {
     private encodeService: EncodeService
   ) {}
 
-  selectedAlgorithm: string = "Metaphone";
+  selectedAlgorithm: string = "Caverphone1";
   encodedText: string = "";
   name: String = "Jainish";
   algorithms = [

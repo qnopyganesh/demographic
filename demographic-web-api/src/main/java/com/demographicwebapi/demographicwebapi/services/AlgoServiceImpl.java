@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.demographicwebapi.demographicwebapi.models.Algo;
 import com.demographicwebapi.demographicwebapi.repositories.AlgoRepo;
+import com.google.gson.Gson;
 
 // import org.apache.commons.codec.EncoderException;
 // import org.apache.commons.codec.StringEncoder;
@@ -32,6 +33,7 @@ public class AlgoServiceImpl implements AlgoService {
 
     @Override
     public String encodeString(String name, String algoName) {
+        Gson gson = new Gson();
         String encodedName = "";
         algoName = algoName.toLowerCase();
 
@@ -85,6 +87,6 @@ public class AlgoServiceImpl implements AlgoService {
             encodedName = encoder.encode(name);
         }
 
-        return encodedName;
+        return gson.toJson(encodedName);
     }
 }
