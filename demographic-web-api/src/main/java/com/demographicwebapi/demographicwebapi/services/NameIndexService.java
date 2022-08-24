@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface NameIndexService {
     public void insertNameIndex(String name, char type, String encode, String name_json,String encode_json, Long algo);
 
-    public List<NameIndex> fetchResults(String name, String algoName);
+    public List<NameIndex> fetchResults(String name, String algoName,boolean isSurname);
 
     public void save(MultipartFile file);
 

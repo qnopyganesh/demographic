@@ -30,9 +30,24 @@ public class NameIndexImpl implements NameIndexService {
 
 
     @Override
-    public List<NameIndex> fetchResults(String name, String algoName) {
-        Long algoID = algoRepo.findByName(algoName).get(0).getId();
-        List<NameIndex> nameIndexes = nameIndexDao.findByNameAndAlgoParam(name, algoID);
+    public List<NameIndex> fetchResults(String name, String algoName, boolean isSurname) {
+        List<Algo> algos = algoRepo.findByName(algoName);
+        Long algoID;
+        if(algos.size() > 0){
+            algoID = algos.get(0).getId();
+        }
+        else{
+            algoID = null;
+            return new ArrayList<NameIndex>();
+        }
+        List<NameIndex> nameIndexes = new ArrayList<>();
+        if(isSurname){
+            nameIndexes = nameIndexDao.findBySNameAndAlgoParam(name, algoID);
+        }
+        else{
+            nameIndexes = nameIndexDao.findByfNameAndAlgoParam(name, algoID);
+
+        }
         return nameIndexes;
     }
 

@@ -1,23 +1,15 @@
-<div class="algo">
-  <label>Enter Algorithm</label>
-  <div class="btn-group">
-    <div ngbDropdown>
-      <button
-        ngbDropdownToggle
-        class="btn btn-flat-primary"
-        type="button"
-        id="dropdownMenuButton100"
-        rippleEffect
-      >
-        Caverphone1
-      </button>
-      <div ngbDropdownMenu aria-labelledby="dropdownMenuButton100">
-        <a ngbDropdownItem href="javascript:void(0)">Caverphone1 </a>
-        <a ngbDropdownItem href="javascript:void(0)">Metaphone</a>
-        <a ngbDropdownItem href="javascript:void(0)">Soundex</a>
-      </div>
-    </div>
-  </div>
+<div class="form-group selectBox mr-3">
+  <label for="basicSelect">Select Algorithm</label
+  ><select
+    id="basicSelect"
+    class="form-control"
+    [(ngModel)]="selectedAlgorithm"
+    (change) = "reset()"
+  >
+    <option *ngFor="let algorithm of algorithms" value="{{ algorithm.value }}">
+      {{ algorithm.value }}
+    </option>
+  </select>
 </div>
 
 <div class="search">
@@ -28,9 +20,28 @@
       class="form-control"
       id="basicInput"
       placeholder="Yash"
+      [(ngModel)] = "fnameValue"
     />
     <div class="my-2">
-      <button type="button" class="btn btn-primary" rippleEffect>Search</button>
+      <button type="button" class="btn btn-primary" (click)="fetchfnameresult()" rippleEffect>Search</button>
+    </div>
+    <div class="table-responsive" *ngIf = "fname.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Name</th>
+            <th>Encoded</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = " let n of fcounter ">
+            <td>{{n+1}}</td>
+            <td>{{fname[n]}}</td>
+            <td>{{fencoded[n]}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -41,9 +52,28 @@
       class="form-control"
       id="basicInput"
       placeholder="Saliya"
+      [(ngModel)] ="snameValue"
     />
     <div class="my-2">
-      <button type="button" class="btn btn-primary" rippleEffect>Search</button>
+      <button type="button" class="btn btn-primary" (click)="fetchsnameresult()" rippleEffect>Search</button>
+    </div>
+    <div class="table-responsive" *ngIf = "sname.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Name</th>
+            <th>Encoded</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = " let n of scounter ">
+            <td>{{n+1}}</td>
+            <td>{{sname[n]}}</td>
+            <td>{{sencoded[n]}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

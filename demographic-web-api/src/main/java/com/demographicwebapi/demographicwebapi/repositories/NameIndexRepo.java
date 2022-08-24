@@ -12,10 +12,19 @@ import java.util.List;
 @Repository
 public interface NameIndexRepo extends JpaRepository<NameIndex,Long> {
     @Query(
-        value = "SELECT * FROM name_index ni where ni.name like (SELECT CONCAT('%',:name,'%')) AND algo = :algo",
+        value = "SELECT * FROM name_index ni where ni.name = :name AND algo = :algo AND type = 'f'",
         nativeQuery = true
     )
-    public List<NameIndex> findByNameAndAlgoParam(
+    public List<NameIndex> findByfNameAndAlgoParam(
+        @Param("name") String name,
+        @Param("algo") Long algo
+    );
+
+    @Query(
+        value = "SELECT * FROM name_index ni where ni.name = :name AND algo = :algo AND type = 's'",
+        nativeQuery = true
+    )
+    public List<NameIndex> findBySNameAndAlgoParam(
         @Param("name") String name,
         @Param("algo") Long algo
     );

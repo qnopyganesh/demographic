@@ -7,7 +7,7 @@ import { HttpClientModule } from "@angular/common/http";
 import "hammerjs";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule } from "@ngx-translate/core";
-import { ToastrModule } from "ngx-toastr"; // For auth after login toast
+import { ToastrModule, ToastrService } from "ngx-toastr"; // For auth after login toast
 
 import { CoreModule } from "@core/core.module";
 import { CoreCommonModule } from "@core/common.module";
@@ -80,10 +80,9 @@ const appRoutes: Routes = [
     SampleModule,
     NgSelectModule,
     FormsModule,
+    ToastrModule.forRoot(),
     HttpClientModule,
-    
   ],
-
   bootstrap: [AppComponent],
 })
 export class AppModule {}
