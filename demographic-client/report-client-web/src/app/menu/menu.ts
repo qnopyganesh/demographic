@@ -33,4 +33,13 @@ export const menu: CoreMenu[] = [
     icon: "file",
     url: "search",
   },
+ 
+  {
+    id: "uploadScreen",
+    title: "UploadScreen",
+    translate: "uploadScreen",
+    type: "item",
+    icon: "file",
+    url: "uploadscreen",
+  },
 ];
