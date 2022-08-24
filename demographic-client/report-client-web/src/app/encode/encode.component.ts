@@ -17,7 +17,7 @@ export class EncodeComponent implements OnInit {
 
   selectedAlgorithm: string = "Caverphone1";
   encodedText: string = "";
-  name: String = "Jainish";
+  name: String = "";
   algorithms = [
     { value: "Caverphone1" },
     { value: "Caverphone2" },
@@ -52,6 +52,7 @@ export class EncodeComponent implements OnInit {
       .encode(this.selectedAlgorithm, this.name)
       .subscribe((data) => {
         console.log(data);
+        this.encodedText = data;
       });
   }
 }
