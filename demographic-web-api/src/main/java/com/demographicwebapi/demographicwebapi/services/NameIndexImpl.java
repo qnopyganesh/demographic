@@ -1,9 +1,13 @@
 package com.demographicwebapi.demographicwebapi.services;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +15,7 @@ import com.demographicwebapi.demographicwebapi.models.Algo;
 import com.demographicwebapi.demographicwebapi.models.NameIndex;
 import com.demographicwebapi.demographicwebapi.repositories.AlgoRepo;
 import com.demographicwebapi.demographicwebapi.repositories.NameIndexRepo;
-import com.demographicwebapi.helper.Excelhelper;
+import com.google.gson.Gson;
 
 @Service
 public class NameIndexImpl implements NameIndexService {
@@ -66,13 +70,49 @@ public class NameIndexImpl implements NameIndexService {
             algoRepo.save(algo);
         }
         algoId = algoRepo.findByName(algoName).get(0).getId();
-        List<NameIndex> data = Excelhelper.convertExcelToListOfNameIndex(file.getInputStream(),algoId,isSurname,fileName);
-        this.nameIndexDao.saveAll(data);
+        convertExcelToListOfNameIndex(file.getInputStream(),algoId,isSurname,fileName);
     } catch (IOException e) {
         e.printStackTrace();
     }
     }
+    
+    @Async
+    public List<NameIndex> convertExcelToListOfNameIndex(InputStream is, Long algoId, boolean isSurname,
+            String fileName) {
 
+        List<NameIndex> list = new ArrayList<>();
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));) {
+            fileReader.readLine();
+            String line1 = "";
+            String line2 = "";
+            while ((line1 = fileReader.readLine()) != null) {
+                line2 = fileReader.readLine();
+                String tokens1[] = line1.split(",");
+                String tokens2[] = line2.split(",");
+                int totalTokens = tokens1.length;
+                NameIndex nameIndex = new NameIndex();
+                nameIndex.setAlgo(algoId);
+                nameIndex.setName(tokens1[2]);
+                nameIndex.setEncode(tokens2[2]);
+                ArrayList<String> name_jsonArray = new ArrayList<>();
+                ArrayList<String> encode_jsonArray = new ArrayList<>();
+                for(int i = 3 ; i < totalTokens ; i++){
+                    name_jsonArray.add(tokens1[i]);
+                    encode_jsonArray.add(tokens2[i]);
+                }
+                Gson gson = new Gson();
+                nameIndex.setName_json(gson.toJson(name_jsonArray));
+                nameIndex.setEncode_json(gson.toJson(encode_jsonArray));
+                nameIndex.setType(isSurname ? 's' : 'f');
+                nameIndexDao.save(nameIndex);
+            }
+        }
+         catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
     @Override
     public List<NameIndex> getAllNameIndex(){
         return this.nameIndexDao.findAll();
