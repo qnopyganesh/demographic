@@ -37,7 +37,7 @@ export class UploadScreenComponent implements OnInit {
       },
       (error)=>{
           this.flag=true;
-          alert(error)
+          alert("some error occured")
       }
 
     )

@@ -6,10 +6,6 @@ import org.springframework.stereotype.Service;
 import com.demographicwebapi.demographicwebapi.models.Algo;
 import com.demographicwebapi.demographicwebapi.repositories.AlgoRepo;
 import com.google.gson.Gson;
-
-// import org.apache.commons.codec.EncoderException;
-// import org.apache.commons.codec.StringEncoder;
-// import org.apache.commons.codec.language.Caverphone;
 import org.apache.commons.codec.language.Caverphone1;
 import org.apache.commons.codec.language.Caverphone2;
 import org.apache.commons.codec.language.ColognePhonetic;
