@@ -118,5 +118,11 @@ public class NameIndexImpl implements NameIndexService {
         return this.nameIndexDao.findAll();
     }
 
+
+    @Override
+    public List<Algo> fetchAlgos() {
+        return algoRepo.findAll();
+    }
+
     
 }

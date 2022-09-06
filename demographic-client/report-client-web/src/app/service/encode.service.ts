@@ -34,4 +34,11 @@ export class EncodeService {
       this.httpOptions
     );
   }
+
+  NameIndexFetchAlgos(){
+    return this.http.get<any>(
+      this.newUrl + `algo`,
+      this.httpOptions
+    );
+  }
 }

@@ -20,26 +20,25 @@ export class SearchScreenComponent implements OnInit {
   fencoded:Array<String> = [];
   fcounter:Array<Number> = [];
   scounter:Array<Number> = [];
+  fnameEmpty:string;
+  snameEmpty:string;
+
   constructor(
     private encodeService:EncodeService
   ) {
     this.fnamearr = []
     this.snamearr = []
-    this.algorithms = [
-      { value: "Caverphone1" },
-      { value: "Caverphone" },
-      { value: "Caverphone2" },
-      { value: "Soundex" },
-      { value: "DaitchMokotoffSoundex" },
-      { value: "ColognePhonetic" },
-      { value: "DoubleMetaphone" },
-      { value: "MatchRatingApproachEncoder" },
-      { value: "Metaphone" },
-      { value: "Nysiis" },
-      { value: "RefinedSoundex" },
-    ];
+    this.algorithms = [];
    }
   ngOnInit(): void {
+    this.encodeService.NameIndexFetchAlgos().subscribe(
+      (data:Array<Algorithm>)=>{
+        this.algorithms = [];
+        data.forEach((ele)=>{
+          this.algorithms.push({value:ele.name});
+        })
+      }
+    )
   }
 
   freset(){
@@ -67,6 +66,12 @@ export class SearchScreenComponent implements OnInit {
     this.encodeService.
     NameIndexSearchByFName(this.selectedAlgorithm,this.fnameValue)
     .subscribe((data:Array<NameIndex>) =>{
+      if (data.length == 0){
+        this.fnameEmpty = "Empty";
+      }
+      else{
+      this.fnameEmpty = "";
+      }
       let curIndex = 0;
       console.log(data);
       data.forEach(ele=>{
@@ -92,6 +97,12 @@ export class SearchScreenComponent implements OnInit {
     this.encodeService.
     NameIndexSearchBySName(this.selectedAlgorithm,this.snameValue)
     .subscribe((data:Array<NameIndex>) =>{
+      if (data.length == 0){
+        this.snameEmpty = "Empty";
+      }
+      else{
+        this.snameEmpty="";
+      }
       let curIndex = 0;
       data.forEach(ele=>{
         this.scounter.push(curIndex);
@@ -110,15 +121,4 @@ export class SearchScreenComponent implements OnInit {
 
     });
   }
-
-  
-
-
-
-
-
-  
-
-
-
 }

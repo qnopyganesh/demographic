@@ -44,6 +44,12 @@ public class NameIndexController {
         return ResponseEntity.ok(nameIndexService.fetchResults(name, algo,isSurname));
     }
 
+    @GetMapping("/get/algo")
+    public ResponseEntity<?> fetchAlgos(){
+        return ResponseEntity.ok(nameIndexService.fetchAlgos());
+
+    }
+
     @PostMapping(value = "/upload")
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
         if (Excelhelper.checkExcelFormat(file)) {

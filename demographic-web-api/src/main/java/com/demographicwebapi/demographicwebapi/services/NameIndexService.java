@@ -1,5 +1,6 @@
 package com.demographicwebapi.demographicwebapi.services;
 
+import com.demographicwebapi.demographicwebapi.models.Algo;
 import com.demographicwebapi.demographicwebapi.models.NameIndex;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface NameIndexService {
     public void save(MultipartFile file);
 
     public List<NameIndex> getAllNameIndex();
+
+    public List<Algo> fetchAlgos();
 }
