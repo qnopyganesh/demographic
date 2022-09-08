@@ -1,6 +1,13 @@
+<div class = "card">
+  <div class = 'card-title'>
+  <h2> Search By First And Last Name</h2>
+  </div>
 <div class="form-group selectBox mr-3">
   <label for="basicSelect">Select Algorithm</label
-  ><select
+  >
+  <div class = 'input1'>
+
+  <select
     id="basicSelect"
     class="form-control"
     [(ngModel)]="selectedAlgorithm"
@@ -11,21 +18,26 @@
     </option>
   </select>
 </div>
+</div>
 
 <div class="search">
   <div class="name">
     <label for="basicInput">Enter Name</label>
-    <input
-      type="text"
-      class="form-control"
-      id="basicInput"
-      placeholder="Yash"
-      [(ngModel)] = "fnameValue"
-    />
+      <input
+        type="text"
+        class="form-control"
+        id="basicInput"
+        placeholder="Yash"
+        [(ngModel)] = "fnameValue"
+      />
     <div class="my-2">
       <button type="button" class="btn btn-primary" (click)="fetchfnameresult()" rippleEffect>Search</button>
     </div>
-    <div class="table-responsive" *ngIf = "fname.length > 0">
+    <div class = "shadow p-3 mb-5 bg-white rounded"  *ngIf = "fname.length > 0" >
+      <div class = "card-title">
+        <h2> First Name </h2>
+      </div>
+    <div class="table-responsive">
       <table class="table">
         <thead>
           <tr>
@@ -42,6 +54,7 @@
           </tr>
         </tbody>
       </table>
+    </div>
     </div>
     <div class ="text-center" *ngIf = "fnameEmpty == 'Empty'">
       <h3>No Results Found</h3>
@@ -82,4 +95,5 @@
       <h3>No Results Found</h3>
     </div>
   </div>
+</div>
 </div>

@@ -2,10 +2,7 @@
     <label for="basicInput"><h2>Upload Your Csv File</h2></label><br/>
     <input (change)="selectfile($event)" type="file" />
     <button type="button" (click)="uploadfile()" class="btn btn-primary" rippleEffect>Upload</button>
-
-    <div class="container" *ngIf="!flag">
-        <h2>File is Uploading.....</h2>
-    </div>
+   
   </div>
 
  
