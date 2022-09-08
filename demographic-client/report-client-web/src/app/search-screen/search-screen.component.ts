@@ -13,7 +13,7 @@ export class SearchScreenComponent implements OnInit {
   fnamearr:Array<NameIndex>;
   snamearr:Array<NameIndex>
   fnameValue:string = "";
-  snameValue:string = "aaa";
+  snameValue:string = "";
   sname:Array<String> = [];
   sencoded:Array<String> = [];
   fname:Array<String> = [];
