@@ -17,4 +17,7 @@ public interface NameIndexService {
     public List<NameIndex> getAllNameIndex();
 
     public List<Algo> fetchAlgos();
+
+    public void saveUserDetails(MultipartFile file);
+
 }

@@ -60,4 +60,13 @@ public class NameIndexController {
 
     }
 
+    @PostMapping(value = "/upload/userdetails")
+    public ResponseEntity<?> uploadUserDetails(@RequestParam("file") MultipartFile file){
+        if (Excelhelper.checkExcelFormat(file)) {
+            this.nameIndexService.saveUserDetails(file);
+            return ResponseEntity.ok(Map.of("message", "File Uploaded Successfully"));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please Upload CSV File Only");
+    }
+
 }

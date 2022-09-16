@@ -13,8 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.demographicwebapi.demographicwebapi.models.Algo;
 import com.demographicwebapi.demographicwebapi.models.NameIndex;
+import com.demographicwebapi.demographicwebapi.models.User;
 import com.demographicwebapi.demographicwebapi.repositories.AlgoRepo;
 import com.demographicwebapi.demographicwebapi.repositories.NameIndexRepo;
+import com.demographicwebapi.demographicwebapi.repositories.userRepo;
 import com.google.gson.Gson;
 
 @Service
@@ -26,6 +28,11 @@ public class NameIndexImpl implements NameIndexService {
     @Autowired
     private AlgoRepo algoRepo;
 
+    @Autowired
+    private AlgoService algoService;
+
+    @Autowired
+    private userRepo userdao;
 
     @Override
     public void insertNameIndex(String name, char type, String encode, String name_json,String encode_json, Long algo) {
@@ -124,5 +131,50 @@ public class NameIndexImpl implements NameIndexService {
         return algoRepo.findAll();
     }
 
-    
+    public void convertExcelToUserDetails(InputStream is ){
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));) {
+            fileReader.readLine(); // skip header line
+            String line = "";
+            while ((line = fileReader.readLine()) != null) {
+                String tokens[] = line.split(",");
+                User user = new User();
+                user.setFirstname(tokens[0]);
+                user.setLastname(tokens[1]);
+                user.setGender(tokens[2]);
+                user.setDob(tokens[3]);
+                user.setAddress("");
+                for(int i = 4 ; i < tokens.length -3 ; i++ ){
+                    user.setAddress(user.getAddress() + tokens[i] + ",");
+                }
+                user.setAddress(user.getAddress() + tokens[tokens.length - 3]);
+                user.setLatitude(Double.parseDouble(tokens[tokens.length-2]));
+                user.setLongitude(Double.parseDouble(tokens[tokens.length-1]));
+                Gson gson = new Gson();
+                String[] algosName = {"caverphone1","caverphone2","colognephonetic","daitchmokotoffsoundex","doublemetaphone","matchratingapproachencoder","metaphone","nysiis","refinedsoundex","soundex"};
+                ArrayList<String> fnameEncoded = new ArrayList<>();
+                ArrayList<String> snameEncoded = new ArrayList<>();
+                for(String algoName: algosName){
+                    fnameEncoded.add(algoName+":"+gson.fromJson(algoService.encodeString(user.getFirstname(),algoName),String.class));
+                    snameEncoded.add(algoName+":"+gson.fromJson(algoService.encodeString(user.getLastname(),algoName),String.class));
+                }
+                user.setFirstnameEncoded(gson.toJson(fnameEncoded).toString());
+                user.setLastnameEncoded(gson.toJson(snameEncoded).toString());
+
+                userdao.save(user);
+                
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @Override
+    public void saveUserDetails(MultipartFile file){
+        try {
+            convertExcelToUserDetails(file.getInputStream());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }

@@ -33,5 +33,22 @@
 			DROP TABLE s_algo;
 		</rollback>
 	</changeSet>
+	<changeSet id="3" author="sha">
+		<sql>
+			create table user (
+			id bigint not null,
+			firstname varchar(4000),
+			lastname varchar(4000),
+			dob date,
+			address varchar(4000),
+			firstnameEncoded varchar(4000),
+			lastnameEncoded varchar(4000),
+			primary key (id)
+			)
+		</sql>
+		<rollback>
+			DROP TABLE s_algo;
+		</rollback>
+	</changeSet>
 	
 </databaseChangeLog>
