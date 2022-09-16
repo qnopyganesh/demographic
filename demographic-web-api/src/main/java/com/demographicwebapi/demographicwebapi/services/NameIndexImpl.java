@@ -177,4 +177,9 @@ public class NameIndexImpl implements NameIndexService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public User fetchUserDetails(String firstname, String lastname){
+        return userdao.findByFirstnameAndLastname(firstname, lastname);
+    }
 }

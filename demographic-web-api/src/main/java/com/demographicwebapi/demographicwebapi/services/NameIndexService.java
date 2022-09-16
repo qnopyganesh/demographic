@@ -2,6 +2,7 @@ package com.demographicwebapi.demographicwebapi.services;
 
 import com.demographicwebapi.demographicwebapi.models.Algo;
 import com.demographicwebapi.demographicwebapi.models.NameIndex;
+import com.demographicwebapi.demographicwebapi.models.User;
 
 import java.util.List;
 
@@ -19,5 +20,7 @@ public interface NameIndexService {
     public List<Algo> fetchAlgos();
 
     public void saveUserDetails(MultipartFile file);
+
+    public User fetchUserDetails(String firstname, String lastname);
 
 }
