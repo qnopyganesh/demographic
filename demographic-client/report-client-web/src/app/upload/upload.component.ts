@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
-import { FileItem, FileUploader } from 'ng2-file-upload';
+import { Component, Input, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { ToastrService } from "ngx-toastr";
+import { FileItem, FileUploader } from "ng2-file-upload";
 @Component({
-  selector: 'app-upload',
-  templateUrl: './upload.component.html',
-  styleUrls: ['./upload.component.scss']
+  selector: "app-upload",
+  templateUrl: "./upload.component.html",
+  styleUrls: ["./upload.component.scss"],
 })
 export class UploadComponent implements OnInit {
   public contentHeader: object;
@@ -16,13 +16,12 @@ export class UploadComponent implements OnInit {
     isHTML5: true,
   });
 
-
-  filrUploadUrl = "http://localhost:9001/NameIndex/upload"
-  constructor(private _http: HttpClient, private toastr: ToastrService) { }
-
+  filrUploadUrl = "http://localhost:9001/NameIndex/upload";
+  constructor(private _http: HttpClient, private toastr: ToastrService) {}
 
   file: any;
 
+  @Input() title;
 
   selectfile(event) {
     this.uploader.queue.pop();
@@ -31,50 +30,53 @@ export class UploadComponent implements OnInit {
   }
 
   toastrSuccess() {
-    this.toastr.success('Your File Uploaded Successfully', 'File Uploaded!', {
-      toastClass: 'toast ngx-toastr',
-      closeButton: true
+    this.toastr.success("Your File Uploaded Successfully", "File Uploaded!", {
+      toastClass: "toast ngx-toastr",
+      closeButton: true,
     });
   }
 
   toastrUploadNotify() {
-    this.toastr.warning('Your File is under processing', 'File Processing!', {
-      toastClass: 'toast ngx-toastr',
-      closeButton: true
+    this.toastr.warning("Your File is under processing", "File Processing!", {
+      toastClass: "toast ngx-toastr",
+      closeButton: true,
     });
   }
-
 
   toastrError() {
-    this.toastr.error('Some Internal Error!  Please Try Again Later', 'Error!', {
-      toastClass: 'toast ngx-toastr',
-      closeButton: true
-    });
+    this.toastr.error(
+      "Some Internal Error!  Please Try Again Later",
+      "Error!",
+      {
+        toastClass: "toast ngx-toastr",
+        closeButton: true,
+      }
+    );
   }
-  uploadAllItems(){
-    for(let item of this.uploader.queue){
+  uploadAllItems() {
+    for (let item of this.uploader.queue) {
       this.uploadfile(item);
     }
   }
 
-  updateUpdaterQueue(item){
+  updateUpdaterQueue(item) {
     let ls = [];
     ls = this.uploader.queue;
     for (let i = 0; i < ls.length; i++) {
-      if(ls[i] == item){
-        ls.splice(i,1);
+      if (ls[i] == item) {
+        ls.splice(i, 1);
       }
     }
     this.uploader.queue = ls;
   }
 
-  clearQueue(){
+  clearQueue() {
     this.uploader.queue = [];
   }
 
   uploadfile(item) {
     console.log(item);
-    console.log("upload")
+    console.log("upload");
     let formData = new FormData();
     formData.append("file", item);
     this._http.post(this.filrUploadUrl, formData).subscribe(
@@ -86,9 +88,7 @@ export class UploadComponent implements OnInit {
         this.toastrError();
         this.updateUpdaterQueue(item);
       }
-
-    )
-
+    );
   }
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -100,8 +100,6 @@ export class UploadComponent implements OnInit {
     this.hasAnotherDropZoneOver = e;
   }
 
-
-
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
@@ -111,28 +109,27 @@ export class UploadComponent implements OnInit {
   ngOnInit(): void {
     // content header
     this.contentHeader = {
-      headerTitle: 'File Uploader',
+      headerTitle: "File Uploader",
       actionButton: true,
       breadcrumb: {
-        type: '',
+        type: "",
         links: [
           {
-            name: 'Home',
+            name: "Home",
             isLink: true,
-            link: '/'
+            link: "/",
           },
           {
-            name: 'Extensions',
+            name: "Extensions",
             isLink: true,
-            link: '/'
+            link: "/",
           },
           {
-            name: 'File Uploader',
-            isLink: false
-          }
-        ]
-      }
+            name: "File Uploader",
+            isLink: false,
+          },
+        ],
+      },
     };
   }
-
 }

@@ -1,107 +1,108 @@
 <div class="content-wrapper container-xxl p-0">
-    <div class="content-body">
-      <app-content-header [contentHeader]="contentHeader"></app-content-header>
-      <ngb-alert [type]="'warning'" [dismissible]="false">
-      </ngb-alert>
-      <section id="file-upload">
-        <div class="card" style = "padding:2%;">
-          <div class = "card-title"><h2>Upload Files</h2></div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-lg-3">
-                <h4>Select files</h4>
-                <fieldset class="form-group">
-                  <label for="file-upload-single">Single:</label>
-                  <div class="custom-file">
-                    <input
-                      type="file"
-                      class="custom-file-input"
-                      type="file"
-                      (change) = "selectfile($event)"
-                      id="file-upload-single"
-                      ng2FileSelect
-                      [uploader]="uploader"
-                    />
-                    <label class="custom-file-label">Choose file</label>
-                  </div>
-                </fieldset>
-              </div>
-  
-              <div class="col-lg-9 overflow-auto">
-                <div class="d-flex justify-content-between mb-1">
-                  <h4>Upload queue</h4>
-                  <p>Queue length: {{ uploader?.queue?.length }}</p>
+  <div class="content-body">
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+    <ngb-alert [type]="'warning'" [dismissible]="false"> </ngb-alert>
+    <section id="file-upload">
+      <div class="card" style="padding: 2%">
+        <div class="card-title">
+          <h2>{{ title }}</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-3">
+              <h4>Select files</h4>
+              <fieldset class="form-group">
+                <label for="file-upload-single">Single:</label>
+                <div class="custom-file">
+                  <input
+                    type="file"
+                    class="custom-file-input"
+                    type="file"
+                    (change)="selectfile($event)"
+                    id="file-upload-single"
+                    ng2FileSelect
+                    [uploader]="uploader"
+                  />
+                  <label class="custom-file-label">Choose file</label>
                 </div>
-  
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th width="50%">Name</th>
-                      <th>Size</th>
-                      
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of uploader.queue">
-                      <td>
-                        <strong>{{ item?.name }}</strong>
-                      </td>
-                      <td *ngIf="uploader.options.isHTML5" nowrap>
-                        {{ item?.size / 1024 / 1024 | number: '.2' }} MB
-                      </td>
-                      
-                      
-                      <td nowrap>
-                        <button
-                          type="button"
-                          class="btn btn-raised btn-outline-success btn-sm mr-50"
-                          (click)="uploadfile(item)"
-                          [disabled]="item.isReady || item.isUploading || item.isSuccess"
-                          rippleEffect
-                        >
-                          <span data-feather="upload"></span>
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-raised btn-outline-danger btn-sm"
-                          (click)="updateUpdaterQueue(item)"
-                          rippleEffect
-                        >
-                          <i data-feather="trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              </fieldset>
+            </div>
 
-                <div id="">
-                  <br>
-                  <button
-                    type="button"
-                    class="btn mr-1 btn-primary mb-1 mb-sm-0"
-                    (click)="uploadAllItems()"
-                    [disabled]="!uploader.getNotUploadedItems().length"
-                    rippleEffect
-                  >
-                    <span data-feather="upload" class="mr-25"></span> Upload all
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger mb-1 mb-sm-0"
-                    (click)="clearQueue()"
-                    [disabled]="!uploader.queue.length"
-                    rippleEffect
-                  >
-                    <span data-feather="trash" class="mr-25"></span> Remove all
-                  </button>
-                </div>
+            <div class="col-lg-9 overflow-auto">
+              <div class="d-flex justify-content-between mb-1">
+                <h4>Upload queue</h4>
+                <p>Queue length: {{ uploader?.queue?.length }}</p>
+              </div>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th width="50%">Name</th>
+                    <th>Size</th>
+
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of uploader.queue">
+                    <td>
+                      <strong>{{ item?.name }}</strong>
+                    </td>
+                    <td *ngIf="uploader.options.isHTML5" nowrap>
+                      {{ item?.size / 1024 / 1024 | number: ".2" }} MB
+                    </td>
+
+                    <td nowrap>
+                      <button
+                        type="button"
+                        class="btn btn-raised btn-outline-success btn-sm mr-50"
+                        (click)="uploadfile(item)"
+                        [disabled]="
+                          item.isReady || item.isUploading || item.isSuccess
+                        "
+                        rippleEffect
+                      >
+                        <span data-feather="upload"></span>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-raised btn-outline-danger btn-sm"
+                        (click)="updateUpdaterQueue(item)"
+                        rippleEffect
+                      >
+                        <i data-feather="trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div id="">
+                <br />
+                <button
+                  type="button"
+                  class="btn mr-1 btn-primary mb-1 mb-sm-0"
+                  (click)="uploadAllItems()"
+                  [disabled]="!uploader.getNotUploadedItems().length"
+                  rippleEffect
+                >
+                  <span data-feather="upload" class="mr-25"></span> Upload all
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger mb-1 mb-sm-0"
+                  (click)="clearQueue()"
+                  [disabled]="!uploader.queue.length"
+                  rippleEffect
+                >
+                  <span data-feather="trash" class="mr-25"></span> Remove all
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <!--/ File Uploader -->
-    </div>
+      </div>
+    </section>
+    <!--/ File Uploader -->
   </div>
-  
+</div>

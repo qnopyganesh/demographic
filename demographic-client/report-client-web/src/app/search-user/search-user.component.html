@@ -1,0 +1,83 @@
+<!-- <google-map
+  [zoom]="userLocationZoom"
+  height="400px"
+  width="100%"
+  [center]="userLocationCenter"
+>
+  <map-marker [position]="userLocationCenter"></map-marker>
+</google-map> -->
+
+<div class="content-wrapper container-xxl p-0">
+  <div class="card">
+    <div class="card-title">
+      <h2>Search User Details</h2>
+    </div>
+    <div class="search">
+      <div class="name">
+        <label for="basicInput">Enter Name</label>
+
+        <input
+          type="text"
+          class="form-control"
+          id="basicInput"
+          placeholder="FirstName"
+          [(ngModel)]="firstName"
+        />
+      </div>
+
+      <div class="lastName">
+        <label for="basicInput">Enter LastName</label>
+        <input
+          type="text"
+          class="form-control"
+          id="basicInput"
+          placeholder="lastName"
+          [(ngModel)]="lastName"
+        />
+      </div>
+    </div>
+    <div class="my-2">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="getUserDetails()"
+        rippleEffect
+      >
+        Search
+      </button>
+    </div>
+    <div class="search" *ngIf="this.user">
+      <div class="name">
+        <div class="card details">
+          <h3 class="user-fullname d-flex justify-content-center">
+            {{ this.user.firstname + " " + this.user.lastname }}
+          </h3>
+          <div class="user-address d-flex justify-content-between mx-3">
+            <h4>Address <span data-feather="map" class="mr-25"></span></h4>
+            <div>{{ this.user.address }}</div>
+          </div>
+          <div class="user-dob d-flex justify-content-between mx-3">
+            <h4>
+              Date of Birth <span data-feather="calender" class="mr-25"></span>
+            </h4>
+            <div>{{ this.user.dob }}</div>
+          </div>
+          <div class="user-gender d-flex justify-content-between mx-3">
+            <h4>Gender <span data-feather="user" class="mr-25"></span></h4>
+            <div>{{ this.user.gender }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="name">
+        <google-map
+          [zoom]="userLocationZoom"
+          height="400px"
+          width="100%"
+          [center]="userLocationCenter"
+        >
+          <map-marker [position]="userLocationCenter"></map-marker>
+        </google-map>
+      </div>
+    </div>
+  </div>
+</div>

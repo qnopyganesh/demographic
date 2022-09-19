@@ -1,9 +1,2 @@
-<div class="container">
-    <label for="basicInput"><h2>Upload Your Csv File</h2></label><br/>
-    <input (change)="selectfile($event)" type="file" />
-    <button type="button" (click)="uploadfile()" class="btn btn-primary" rippleEffect>Upload</button>
-   
-  </div>
-
- 
-  
+<app-upload [title]="'Upload Files'"></app-upload>
+<app-upload [title]="'Upload User Details'"></app-upload>

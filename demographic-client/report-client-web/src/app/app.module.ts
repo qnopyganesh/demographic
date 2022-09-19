@@ -3,7 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule, Routes } from "@angular/router";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
-import { FileUploadModule } from 'ng2-file-upload';
+import { FileUploadModule } from "ng2-file-upload";
 import "hammerjs";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule } from "@ngx-translate/core";
@@ -22,9 +22,11 @@ import { EncodeComponent } from "./encode/encode.component";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { FormsModule } from "@angular/forms";
 import { SearchScreenComponent } from "./search-screen/search-screen.component";
-import { UploadScreenComponent } from './upload-screen/upload-screen.component';
-import { UploadComponent } from './upload/upload.component';
+import { UploadScreenComponent } from "./upload-screen/upload-screen.component";
+import { UploadComponent } from "./upload/upload.component";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { SearchUserComponent } from "./search-user/search-user.component";
+import { GoogleMapsModule } from "@angular/google-maps";
 
 const appRoutes: Routes = [
   {
@@ -50,8 +52,12 @@ const appRoutes: Routes = [
     component: UploadScreenComponent,
   },
   {
-    path:"upload",
-    component:UploadComponent
+    path: "upload",
+    component: UploadComponent,
+  },
+  {
+    path: "searchUser",
+    component: SearchUserComponent,
   },
   {
     path: "**",
@@ -60,7 +66,14 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, EncodeComponent, SearchScreenComponent, UploadScreenComponent, UploadComponent],
+  declarations: [
+    AppComponent,
+    EncodeComponent,
+    SearchScreenComponent,
+    UploadScreenComponent,
+    UploadComponent,
+    SearchUserComponent,
+  ],
   imports: [
     FileUploadModule,
     BrowserModule,
@@ -89,8 +102,9 @@ const appRoutes: Routes = [
     FormsModule,
     ToastrModule.forRoot(),
     HttpClientModule,
+    GoogleMapsModule,
   ],
   bootstrap: [AppComponent],
-  schemas: [NO_ERRORS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule {}

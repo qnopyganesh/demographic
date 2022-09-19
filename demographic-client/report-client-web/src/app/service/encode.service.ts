@@ -7,10 +7,11 @@ import { tap } from "rxjs/operators";
 })
 export class EncodeService {
   constructor(private http: HttpClient) {}
-  truestring:string = 'true';
-  falsestring:string = 'false';
+  truestring: string = "true";
+  falsestring: string = "false";
   url: String = "http://localhost:9001/encode/get";
-  newUrl:String = "http://localhost:9001/NameIndex/get/";
+  newUrl: String = "http://localhost:9001/NameIndex/get/";
+  searchUserUrl: String = "http://localhost:9001/NameIndex/get/userdetails/";
   httpOptions = {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
@@ -35,9 +36,13 @@ export class EncodeService {
     );
   }
 
-  NameIndexFetchAlgos(){
+  NameIndexFetchAlgos() {
+    return this.http.get<any>(this.newUrl + `algo`, this.httpOptions);
+  }
+
+  fetchUserDetails(firstName: String, lastName: String) {
     return this.http.get<any>(
-      this.newUrl + `algo`,
+      this.searchUserUrl + `${firstName}/${lastName}`,
       this.httpOptions
     );
   }

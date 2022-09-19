@@ -39,7 +39,14 @@ export const menu: CoreMenu[] = [
     translate: "Upload",
     type: "item",
     icon: "upload",
-    url: "upload",
-  }
-
+    url: "uploadscreen",
+  },
+  {
+    id: "searchUser",
+    title: "Search User",
+    translate: "searchUser",
+    type: "item",
+    icon: "search",
+    url: "searchUser",
+  },
 ];
