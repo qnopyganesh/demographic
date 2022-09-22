@@ -111,7 +111,12 @@ public class NameIndexImpl implements NameIndexService {
                 nameIndex.setName_json(gson.toJson(name_jsonArray));
                 nameIndex.setEncode_json(gson.toJson(encode_jsonArray));
                 nameIndex.setType(isSurname ? 's' : 'f');
-                nameIndexDao.save(nameIndex);
+                if(nameIndexDao.findBySNameAndAlgoParam(nameIndex.getName(), algoId).size() == 0 &&
+                        nameIndexDao.findByfNameAndAlgoParam(nameIndex.getName(), algoId).size() == 0
+                ){
+                    nameIndexDao.save(nameIndex);
+                }
+                
             }
         }
          catch (Exception e) {
@@ -138,15 +143,16 @@ public class NameIndexImpl implements NameIndexService {
             while ((line = fileReader.readLine()) != null) {
                 String tokens[] = line.split(",");
                 User user = new User();
-                user.setFirstname(tokens[0]);
-                user.setLastname(tokens[1]);
-                user.setGender(tokens[2]);
+                user.setFirstname(tokens[0].replaceAll("\"",""));
+                user.setLastname(tokens[1].replaceAll("\"",""));
+                user.setGender(tokens[2].replaceAll("\"",""));
                 user.setDob(tokens[3]);
                 user.setAddress("");
+
                 for(int i = 4 ; i < tokens.length -3 ; i++ ){
                     user.setAddress(user.getAddress() + tokens[i] + ",");
                 }
-                user.setAddress(user.getAddress() + tokens[tokens.length - 3]);
+                user.setAddress((user.getAddress() + tokens[tokens.length - 3]).replaceAll("\"",""));
                 user.setLatitude(Double.parseDouble(tokens[tokens.length-2]));
                 user.setLongitude(Double.parseDouble(tokens[tokens.length-1]));
                 Gson gson = new Gson();
@@ -159,8 +165,10 @@ public class NameIndexImpl implements NameIndexService {
                 }
                 user.setFirstnameEncoded(gson.toJson(fnameEncoded).toString());
                 user.setLastnameEncoded(gson.toJson(snameEncoded).toString());
+                if (userdao.findByFirstnameAndLastname(user.getFirstname(),user.getLastname()) == null){
+                    userdao.save(user);
+                }
 
-                userdao.save(user);
                 
             }
         } catch (Exception e) {
@@ -173,7 +181,6 @@ public class NameIndexImpl implements NameIndexService {
         try {
             convertExcelToUserDetails(file.getInputStream());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

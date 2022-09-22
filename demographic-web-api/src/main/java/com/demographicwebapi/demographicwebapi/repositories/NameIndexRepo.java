@@ -28,4 +28,7 @@ public interface NameIndexRepo extends JpaRepository<NameIndex,Long> {
         @Param("name") String name,
         @Param("algo") Long algo
     );
+
+
+    
 }

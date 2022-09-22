@@ -16,7 +16,7 @@ export class UploadComponent implements OnInit {
     isHTML5: true,
   });
 
-  filrUploadUrl = "http://localhost:9001/NameIndex/upload";
+  @Input() filrUploadUrl:string;
   constructor(private _http: HttpClient, private toastr: ToastrService) {}
 
   file: any;

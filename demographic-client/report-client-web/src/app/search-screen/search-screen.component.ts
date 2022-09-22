@@ -10,6 +10,7 @@ import { NameIndex } from './models/NameIndex';
 export class SearchScreenComponent implements OnInit {
   algorithms =[]
   selectedAlgorithm:string = "Caverphone2";
+  selectedlastNameAlgorithm:string;
   fnamearr:Array<NameIndex>;
   snamearr:Array<NameIndex>
   fnameValue:string = "";
@@ -95,7 +96,7 @@ export class SearchScreenComponent implements OnInit {
   fetchsnameresult(){
     this.sreset();
     this.encodeService.
-    NameIndexSearchBySName(this.selectedAlgorithm,this.snameValue)
+    NameIndexSearchBySName(this.selectedlastNameAlgorithm,this.snameValue)
     .subscribe((data:Array<NameIndex>) =>{
       if (data.length == 0){
         this.snameEmpty = "Empty";
