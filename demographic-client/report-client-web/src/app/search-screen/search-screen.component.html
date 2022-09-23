@@ -1,127 +1,144 @@
 <div class="content-wrapper container-xxl p-0">
-<div class = "card">
-  <div class = 'card-title'>
-  <h2> Search By First And Last Name</h2>
-  </div>
-  
+  <div class="card">
+    <div class="card-title">
+      <h2>Search By First And Last Name</h2>
+    </div>
 
-<div class = "row">
-  <div class = "col-md">
-    <div class="form-group selectBox mr-3">
-      <label for="basicSelect">Select Algorithm</label
-      >
-      <div class = 'input1'>
-    
-      <select
-        id="basicSelect"
-        class="form-control"
-        [(ngModel)]="selectedAlgorithm"
-      >
-        <option *ngFor="let algorithm of algorithms" value="{{ algorithm.value }}">
-          {{ algorithm.value }}
-        </option>
-      </select>
-    </div>
-  </div>
-  <div class = 'col-md'>
-    <div class="form-group selectBox mr-3">
-      <label for="basicSelect">Select Algorithm</label
-      >
-      <div class = 'input1'>
-    
-      <select
-        id="basicSelect"
-        class="form-control"
-        [(ngModel)]="selectedlastNameAlgorithm"
-      >
-        <option *ngFor="let algorithm of algorithms" value="{{ algorithm.value }}">
-          {{ algorithm.value }}
-        </option>
-      </select>
-    </div>
-  </div>
-</div>
-
-<div class="search">
-  <div class="name">
-    <label for="basicInput">Enter Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="basicInput"
-        placeholder="FirstName"
-        [(ngModel)] = "fnameValue"
-      />
-    <div class="my-2">
-      <button type="button" class="btn btn-primary" (click)="fetchfnameresult()" rippleEffect>Search</button>
-    </div>
-    <div class = "shadow p-3 mb-5 bg-white rounded"  *ngIf = "fname.length > 0" >
-      <div class = "card-title">
-        <h2> First Name </h2>
+    <div class="search">
+      <div class="w-100">
+        <div class="form-group selectBox mr-2">
+          <label for="basicSelect">Select Algorithm</label>
+          <div class="input1">
+            <select
+              id="basicSelect"
+              class="form-control"
+              [(ngModel)]="selectedAlgorithm"
+            >
+              <option
+                *ngFor="let algorithm of algorithms"
+                value="{{ algorithm.value }}"
+              >
+                {{ algorithm.value }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Index</th>
-            <th>Name</th>
-            <th>Encoded</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor = " let n of fcounter ">
-            <td>{{n+1}}</td>
-            <td>{{fname[n]}}</td>
-            <td>{{fencoded[n]}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    </div>
-    <div class ="text-center" *ngIf = "fnameEmpty == 'Empty'">
-      <h3>No Results Found</h3>
-    </div>
-  </div>
-
-  <div class="lastName">
-    <label for="basicInput">Enter Last Name</label>
-    <input
-      type="text"
-      class="form-control"
-      id="basicInput"
-      placeholder="LastName"
-      [(ngModel)] ="snameValue"
-    />
-    <div class="my-2">
-      <button type="button" class="btn btn-primary" (click)="fetchsnameresult()" rippleEffect>Search</button>
-    </div>
-    <div class = "shadow p-3 mb-5 bg-white rounded"  *ngIf = "sname.length > 0" >
-      <div class = "card-title">
-        <h2> Last Name </h2>
+      <div class="w-100">
+        <div class="form-group selectBox mr-2">
+          <label for="basicSelect">Select Algorithm</label>
+          <div class="input1">
+            <select
+              id="basicSelect"
+              class="form-control"
+              [(ngModel)]="selectedlastNameAlgorithm"
+            >
+              <option
+                *ngFor="let algorithm of algorithms"
+                value="{{ algorithm.value }}"
+              >
+                {{ algorithm.value }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
-    <div class="table-responsive" *ngIf = "sname.length > 0">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Index</th>
-            <th>Name</th>
-            <th>Encoded</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor = " let n of scounter ">
-            <td>{{n+1}}</td>
-            <td>{{sname[n]}}</td>
-            <td>{{sencoded[n]}}</td>
-          </tr>
-        </tbody>
-      </table>
+    </div>
+
+    <div class="search">
+      <div class="name">
+        <label for="basicInput">Enter Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="basicInput"
+          placeholder="FirstName"
+          [(ngModel)]="fnameValue"
+        />
+        <div class="my-2">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="fetchfnameresult()"
+            rippleEffect
+          >
+            Search
+          </button>
+        </div>
+        <div class="shadow p-3 mb-5 bg-white rounded" *ngIf="fname.length > 0">
+          <div class="card-title">
+            <h2>First Name</h2>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Index</th>
+                  <th>Name</th>
+                  <th>Encoded</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let n of fcounter">
+                  <td>{{ n + 1 }}</td>
+                  <td>{{ fname[n] }}</td>
+                  <td>{{ fencoded[n] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="text-center" *ngIf="fnameEmpty == 'Empty'">
+          <h3>No Results Found</h3>
+        </div>
+      </div>
+
+      <div class="lastName">
+        <label for="basicInput">Enter Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="basicInput"
+          placeholder="LastName"
+          [(ngModel)]="snameValue"
+        />
+        <div class="my-2">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="fetchsnameresult()"
+            rippleEffect
+          >
+            Search
+          </button>
+        </div>
+        <div class="shadow p-3 mb-5 bg-white rounded" *ngIf="sname.length > 0">
+          <div class="card-title">
+            <h2>Last Name</h2>
+          </div>
+          <div class="table-responsive" *ngIf="sname.length > 0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Index</th>
+                  <th>Name</th>
+                  <th>Encoded</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let n of scounter">
+                  <td>{{ n + 1 }}</td>
+                  <td>{{ sname[n] }}</td>
+                  <td>{{ sencoded[n] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="text-center" *ngIf="snameEmpty == 'Empty'">
+          <h3>No Results Found</h3>
+        </div>
+      </div>
     </div>
   </div>
-    <div class ="text-center" *ngIf = "snameEmpty == 'Empty'">
-      <h3>No Results Found</h3>
-    </div>
-  </div>
-</div>
-</div>
 </div>
