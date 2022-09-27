@@ -1,0 +1,31 @@
+<div class="d-flex">
+  <div class="form-group selectBox mr-3">
+    <label for="basicSelect">Select Algorithm</label
+    ><select
+      id="basicSelect"
+      class="form-control"
+      [(ngModel)]="selectedAlgorithm"
+    >
+      <option value="Metaphone" >Metaphone</option>
+      <option
+        *ngFor="let algorithm of algorithms"
+        value="{{ algorithm.value }}"
+      >
+        {{ algorithm.value }}
+      </option>
+    </select>
+  </div>
+</div>
+
+<div *ngIf = "ready">
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [xaxis]="chartOptions.xaxis"
+      [dataLabels]="chartOptions.dataLabels"
+      [grid]="chartOptions.grid"
+      [stroke]="chartOptions.stroke"
+      [title]="chartOptions.title"
+    ></apx-chart>
+  </div>
+  
