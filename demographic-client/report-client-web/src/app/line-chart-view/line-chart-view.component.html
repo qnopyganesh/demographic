@@ -1,24 +1,8 @@
 <div class="d-flex">
-  <div class="form-group selectBox mr-3">
-    <label for="basicSelect">Select Algorithm</label
-    ><select
-      id="basicSelect"
-      class="form-control"
-      [(ngModel)]="selectedAlgorithm"
-    >
-      <option value="Metaphone" >Metaphone</option>
-      <option
-        *ngFor="let algorithm of algorithms"
-        value="{{ algorithm.value }}"
-      >
-        {{ algorithm.value }}
-      </option>
-    </select>
-  </div>
 </div>
 
-<div *ngIf = "ready">
-    <apx-chart
+<div *ngIf = "ready"   id = "baraccuracychart">
+    <apx-chart id = "chart"
       [series]="chartOptions.series"
       [chart]="chartOptions.chart"
       [xaxis]="chartOptions.xaxis"
@@ -28,4 +12,31 @@
       [title]="chartOptions.title"
     ></apx-chart>
   </div>
+<br>
+<div class="form-check form-check-inline">
+  <input
+    class="form-check-input"
+    type="radio"
+    name = "inlineRadioOptions"
+    id="inlineRadio1"
+    value="option1"
+    checked
+    (click)="changeCharttoBar('bar')"
+    style = "height:10px; width:10px"
+  />
+  <label class="form-check-label" for="inlineRadio1"><h2>Bar</h2></label>
+</div>
+<div class="form-check form-check-inline">
+  <input
+    class="form-check-input"
+    type="radio"
+    name = "inlineRadioOptions"
+    id="inlineRadio2"
+    value="option2"
+    (click)="changeCharttoLine('line')"
+    style = "height:10px; width:10px"
+    
+  />
+  <label class="form-check-label" for="inlineRadio2"><h2>Line</h2></label>
+</div>
   

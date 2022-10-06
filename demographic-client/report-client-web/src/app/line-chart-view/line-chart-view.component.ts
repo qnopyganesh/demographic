@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FileReadingService } from 'app/service/filereading.service';
 import {
   ChartComponent,
@@ -27,33 +27,57 @@ export type ChartOptions = {
   styleUrls: ['./line-chart-view.component.scss']
 })
 export class LineChartViewComponent implements OnInit{
-  public chart: ChartComponent;
+  @ViewChild("baraccuracychart", { static: true }) baraccuracychart: ChartComponent;
+  public type:ApexChart;
   public chartOptions: Partial<ChartOptions>;
   public namefile:Map<string,any>;
   public key:string = "Caverphone";
   public ready:boolean = false;
   public selectedAlgorithm:string;
-  public algorithms = [];
+  @Input() source:string;
+  @Input() title:string;
+  public algorithms = [
+    { value: "Caverphone1" },
+    { value: "Caverphone2" },
+    { value: "Caverphone" },
+    { value: "DaitchMokotoffSoundex" },
+    { value: "ColognePhonetic" },
+    { value: "DoubleMetaphone" },
+    {value : "DaitchMokotoffSoundex"},
+    { value: "MatchRatingApproachEncoder" },
+    { value: "Metaphone" },
+    { value: "Metaphone3" },
+    { value: "Nysiis" },
+    { value: "RefinedSoundex" },
+    { value: "Soundex" },
+  ];
 
 
   public x = [];
   public y = [];
+  series:ApexAxisChartSeries;
   constructor(private fileservice:FileReadingService,private httpclient:HttpClient) {
-    this.chart = new ChartComponent();
+    this.type = {
+      height: 350,
+      type: "bar",
+      zoom: {
+        enabled: true
+      }
+    };
+    this.series = [
+      {
+        name: this.key,
+        data: [1,2,3,40]
+      }
+    ],
+    this.initializechart();
+  }
+  initializechart(){
+    this.baraccuracychart = new ChartComponent();
+
     this.chartOptions = {
-      series: [
-        {
-          name: "Desktops",
-          data: [1,2,3,40]
-        }
-      ],
-      chart: {
-        height: 350,
-        type: "bar",
-        zoom: {
-          enabled: false
-        }
-      },
+      series: this.series,
+      chart: this.type,
       dataLabels: {
         enabled: false
       },
@@ -61,7 +85,7 @@ export class LineChartViewComponent implements OnInit{
         curve: "straight"
       },
       title: {
-        text: "Product Trends by Month",
+        text: this.title,
         align: "left"
       },
       grid: {
@@ -74,41 +98,70 @@ export class LineChartViewComponent implements OnInit{
         categories: [1,2,4,5]
       }
     };
+    if(this.ready){
+      this.reset1();
+    }
+    
+  }
+
+  reset1(){
+    this.chartOptions.series[0].data = this.namefile.get(this.key)[1];
+    this.chartOptions.series[0].name = this.key;
+    this.chartOptions.xaxis.categories = this.namefile.get(this.key)[0];
   }
   ngOnInit(): void {
     let namefile = new Map();
-    this.httpclient.get('assets/data/accuercy_name.csv',{responseType:'text'})
+    this.httpclient.get(this.source,{responseType:'text'})
     .subscribe(
       data => {
         let csvToRowArray = data.split("\n");
         for (let index = 1; index < csvToRowArray.length - 1; index++) {
           let row = csvToRowArray[index].split(",");
           if(!namefile.has(row[0])){
-            namefile.set(row[0],[[Number(row[1])],[Number(row[2].replace('\r',''))]]);
+            namefile.set(row[0],[[Number(row[1]).toFixed(3)],[Number(row[2].replace('\r','')).toFixed(3)]]);
           }
           else{
-            namefile.get(row[0])[0].push(Number(row[1]));
-            namefile.get(row[0])[1].push(Number(row[2].replace('\r','')));
+            namefile.get(row[0])[0].push(Number(row[1]).toFixed(3));
+            namefile.get(row[0])[1].push(Number(row[2].replace('\r','')).toFixed(3));
           }
         }
         this.namefile = namefile;
-        console.log(this.namefile);
         this.ready = true;
-        this.chartOptions.series[0].data = this.namefile.get(this.key)[1];
-        this.chartOptions.xaxis.categories = this.namefile.get(this.key)[0];
-        this.chart.updateOptions(this.chartOptions);
-        this.algorithms = Array.from(namefile.keys());
-        console.log(this.algorithms);
+        this.series = [];
+        namefile.forEach((value,key)=>{
+          this.series.push({
+            name: key,
+            data: value[1]
+          });
+        })
+        this.initializechart();
       },
     error => {
-      console.log(error);
     }
     );
   }
-  reset(){
-    if(this.namefile.has(this.key)){
-      this.chartOptions.series[0].data = this.namefile.get(this.key)[1];
-      this.chartOptions.xaxis.categories = this.namefile.get(this.key)[0];
+  reset(event){
+    console.log((document.getElementById("inlineRadio1") as HTMLInputElement).checked);
+    this.initializechart();
+  }
+  changeCharttoBar(st){
+    this.type = {
+      height: 350,
+      type: "bar",
+      zoom: {
+        enabled: true
+      }
     }
+    this.initializechart();
+  }
+  changeCharttoLine(st){
+    this.type = {
+      height: 350,
+      type: "line",
+      zoom: {
+        enabled: true
+      }
+    }
+    this.initializechart();
   }
 }

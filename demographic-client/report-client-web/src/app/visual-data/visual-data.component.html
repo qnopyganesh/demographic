@@ -4,7 +4,9 @@
             <h2 class = "mt-2 ml-2">Analysis</h2>
         </div>
         <div class = "card-body text-center">
-            <app-line-chart-view></app-line-chart-view>
-            <app-bar-chart-view></app-bar-chart-view>
+            <app-line-chart-view [source] = "'assets/data/accuercy_name.csv'" [title] = "'First Name Accuracy Chart'"></app-line-chart-view>
+            <app-line-chart-view [source] = "'assets/data/accuercy_surname.csv'" [title] = "'Last Name Accuracy Chart'"></app-line-chart-view>
+        </div>
     </div>
 </div>
+//Structured demographic data deduplication

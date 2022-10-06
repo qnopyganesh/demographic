@@ -37,6 +37,10 @@ export class SearchUserComponent implements OnInit {
       .fetchUserDetails(this.firstName, this.lastName)
       .subscribe((data) => {
         this.user = data;
+        this.userLocationCenter = {
+          lat: this.user.latitude,
+          lng: this.user.longitude,
+        };
         console.log(data);
       });
   }
