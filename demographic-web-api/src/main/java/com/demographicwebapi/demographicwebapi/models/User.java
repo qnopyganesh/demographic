@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 import lombok.*;
 
-import java.sql.Date;
+// import java.sql.Date;
 
 @Table(name = "s_user")
 @Entity
@@ -43,7 +43,6 @@ public class User {
     @Column(name = "longitude")
     private Double longitude;
 
-
     public User(String firstname, String lastname, String dob, String gender, String address, String firstnameEncoded,
             String lastnameEncoded, Double latitude, Double longitude) {
         this.firstname = firstname;
@@ -57,8 +56,8 @@ public class User {
         this.longitude = longitude;
     }
 
-    public User(){
-        
+    public User() {
+
     }
 
 }
