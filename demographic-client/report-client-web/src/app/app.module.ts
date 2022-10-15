@@ -31,6 +31,7 @@ import { VisualDataComponent } from './visual-data/visual-data.component';
 import { BarChartViewComponent } from './bar-chart-view/bar-chart-view.component';
 import { LineChartViewComponent } from './line-chart-view/line-chart-view.component';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { AuthenticationModule } from "./authentication/authentication.module";
 
 const appRoutes: Routes = [
   {
@@ -88,6 +89,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     FileUploadModule,
+    AuthenticationModule,
     BrowserModule,
     NgApexchartsModule,
     BrowserAnimationsModule,
@@ -120,4 +122,6 @@ const appRoutes: Routes = [
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class AppModule {}
+export class AppModule {
+  
+}
