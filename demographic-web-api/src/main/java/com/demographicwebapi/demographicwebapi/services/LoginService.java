@@ -6,4 +6,6 @@ public interface LoginService {
 
     public Login login(String username, String password);
 
+    public Login signUp(String username, String password);
+
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 import lombok.*;
 
-@Table(name = "login")
+@Table(name = "login", uniqueConstraints = @UniqueConstraint(columnNames = { "username" }))
 @Entity
 @Data
 public class Login {
@@ -25,14 +25,10 @@ public class Login {
     public Login() {
     }
 
-    public Login(String username, String email, String password) {
+    public Login(String username, String password) {
         this.username = username;
 
         this.password = password;
-    }
-
-    public Login findByUsername(String username2) {
-        return null;
     }
 
 }
