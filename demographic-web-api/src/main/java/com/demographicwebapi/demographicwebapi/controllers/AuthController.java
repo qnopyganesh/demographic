@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demographicwebapi.demographicwebapi.models.Login;
 import com.demographicwebapi.demographicwebapi.services.LoginService;
 
 @RestController
@@ -21,15 +22,13 @@ public class AuthController {
 
     @PostMapping(value = "/login")
     @CrossOrigin(exposedHeaders = "Access-Control-Allow-Origin")
-    @ResponseBody
-    public ResponseEntity<?> login(@RequestParam("username") String username,
+    public ResponseEntity<Login> login(@RequestParam("username") String username,
             @RequestParam("password") String password) {
         return ResponseEntity.ok(loginService.login(username, password));
     }
 
     @PostMapping(value = "/signUp")
     @CrossOrigin(exposedHeaders = "Access-Control-Allow-Origin")
-    @ResponseBody
     public ResponseEntity<?> signUp(@RequestParam("username") String username,
             @RequestParam("password") String password) {
         return ResponseEntity.ok(loginService.signUp(username, password));

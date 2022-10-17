@@ -14,11 +14,7 @@ public class LoginServiceImpl implements LoginService {
 
     public Login login(String username, String password) {
         Login user = loginRepo.findByUsername(username);
-
-        if (user.getPassword() == password) {
-            return user;
-        }
-        return null;
+        return user.getPassword().compareTo(password) == 0 ?user:null;
     }
 
     public Login signUp(String username, String password) {
