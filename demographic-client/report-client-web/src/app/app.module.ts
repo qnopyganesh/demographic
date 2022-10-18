@@ -27,9 +27,9 @@ import { UploadComponent } from "./upload/upload.component";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { SearchUserComponent } from "./search-user/search-user.component";
 import { GoogleMapsModule } from "@angular/google-maps";
-import { VisualDataComponent } from './visual-data/visual-data.component';
-import { BarChartViewComponent } from './bar-chart-view/bar-chart-view.component';
-import { LineChartViewComponent } from './line-chart-view/line-chart-view.component';
+import { VisualDataComponent } from "./visual-data/visual-data.component";
+import { BarChartViewComponent } from "./bar-chart-view/bar-chart-view.component";
+import { LineChartViewComponent } from "./line-chart-view/line-chart-view.component";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { AuthenticationModule } from "./authentication/authentication.module";
 import { AuthGuard } from "./auth/helpers/auth.guards";
@@ -42,44 +42,43 @@ const appRoutes: Routes = [
   },
   {
     path: "",
-    redirectTo: "/home",
+    redirectTo: "/encode",
     pathMatch: "full",
   },
   {
     path: "encode",
     component: EncodeComponent,
-    canActivate : [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: "search",
     component: SearchScreenComponent,
-    canActivate : [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: "uploadscreen",
     component: UploadScreenComponent,
-    canActivate : [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: "upload",
     component: UploadComponent,
-    canActivate : [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: "searchUser",
     component: SearchUserComponent,
-    canActivate : [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: "visualdata",
-    component:VisualDataComponent,
-    canActivate : [AuthGuard]
+    component: VisualDataComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: "**",
     redirectTo: "/pages/miscellaneous/error", //Error 404 - Page not found
   },
-
 ];
 
 @NgModule({
@@ -129,6 +128,4 @@ const appRoutes: Routes = [
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class AppModule {
-  
-}
+export class AppModule {}

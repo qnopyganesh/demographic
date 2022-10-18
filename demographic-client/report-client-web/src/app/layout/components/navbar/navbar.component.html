@@ -46,6 +46,11 @@
   </div>
 
   <ul class="nav navbar-nav align-items-center ml-auto">
+    <span class="mr-1 displayUsername"
+      >Hello, {{this.currentUser.username}}
+    </span>
+
+    <button class="btn btn-primary" (click)="logout()">Logout</button>
     <!-- ? Language  | Uncomment if needed-->
     <!-- <li ngbDropdown class="nav-item dropdown dropdown-language">
       <a class="nav-link dropdown-toggle" id="dropdown-flag" ngbDropdownToggle>

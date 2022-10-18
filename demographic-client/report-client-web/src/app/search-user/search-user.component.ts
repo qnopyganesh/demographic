@@ -15,8 +15,8 @@ export class SearchUserComponent implements OnInit {
   public userLocationZoom = 15;
   public userLocationCenter: google.maps.LatLngLiteral;
 
-  firstName: String;
-  lastName: String;
+  firstName: String = "Jainish";
+  lastName: String = "Sakidas";
 
   user: any;
   /**

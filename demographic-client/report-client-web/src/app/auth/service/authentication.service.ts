@@ -133,6 +133,13 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem("currentUser");
+    setTimeout(() => {
+      this._toastrService.success(
+        "You have successfully logged out",
+        "Please Login To use the Service",
+        { toastClass: "toast ngx-toastr", closeButton: true }
+      );
+    }, 2500);
     // notify
     this.currentUserSubject.next(null);
   }
