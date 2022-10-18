@@ -1,16 +1,18 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { takeUntil, first } from "rxjs/operators";
+import { Subject } from "rxjs";
 
-import { CoreConfigService } from '@core/services/config.service';
+import { CoreConfigService } from "@core/services/config.service";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "app/auth/service";
 
 @Component({
-  selector: 'app-auth-register-v2',
-  templateUrl: './auth-register-v2.component.html',
-  styleUrls: ['./auth-register-v2.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: "app-auth-register-v2",
+  templateUrl: "./auth-register-v2.component.html",
+  styleUrls: ["./auth-register-v2.component.scss"],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AuthRegisterV2Component implements OnInit {
   // Public
@@ -18,6 +20,9 @@ export class AuthRegisterV2Component implements OnInit {
   public passwordTextType: boolean;
   public registerForm: FormGroup;
   public submitted = false;
+  public loading = false;
+  public returnUrl: string;
+  public error = "";
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -28,24 +33,29 @@ export class AuthRegisterV2Component implements OnInit {
    * @param {CoreConfigService} _coreConfigService
    * @param {FormBuilder} _formBuilder
    */
-  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: FormBuilder) {
+  constructor(
+    private _coreConfigService: CoreConfigService,
+    private _formBuilder: FormBuilder,
+    private _router: Router,
+    private _authenticationService: AuthenticationService
+  ) {
     this._unsubscribeAll = new Subject();
 
     // Configure the layout
     this._coreConfigService.config = {
       layout: {
         navbar: {
-          hidden: true
+          hidden: true,
         },
         menu: {
-          hidden: true
+          hidden: true,
         },
         footer: {
-          hidden: true
+          hidden: true,
         },
         customizer: false,
-        enableLocalStorage: false
-      }
+        enableLocalStorage: false,
+      },
     };
   }
 
@@ -71,6 +81,24 @@ export class AuthRegisterV2Component implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
+
+    // Login Page
+    // this._router.navigate(["/authentication/logiin-v2"]);
+
+    // Register
+    this.loading = true;
+    this._authenticationService
+      .register(this.f.username.value, this.f.password.value)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this._router.navigate(["/authentication/login-v2"]);
+        },
+        (error) => {
+          this.error = error;
+          this.loading = false;
+        }
+      );
   }
 
   // Lifecycle Hooks
@@ -81,15 +109,17 @@ export class AuthRegisterV2Component implements OnInit {
    */
   ngOnInit(): void {
     this.registerForm = this._formBuilder.group({
-      username: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      username: ["", [Validators.required]],
+      // email: ["", [Validators.required, Validators.email]],
+      password: ["", Validators.required],
     });
 
     // Subscribe to config changes
-    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
-      this.coreConfig = config;
-    });
+    this._coreConfigService.config
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((config) => {
+        this.coreConfig = config;
+      });
   }
 
   /**

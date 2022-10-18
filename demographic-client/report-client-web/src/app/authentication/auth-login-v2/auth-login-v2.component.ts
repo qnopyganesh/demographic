@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { takeUntil, first } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { takeUntil, first } from "rxjs/operators";
+import { Subject } from "rxjs";
 
-import { AuthenticationService } from 'app/auth/service';
-import { CoreConfigService } from '@core/services/config.service';
+import { AuthenticationService } from "app/auth/service";
+import { CoreConfigService } from "@core/services/config.service";
 
 @Component({
-  selector: 'app-auth-login-v2',
-  templateUrl: './auth-login-v2.component.html',
-  styleUrls: ['./auth-login-v2.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: "app-auth-login-v2",
+  templateUrl: "./auth-login-v2.component.html",
+  styleUrls: ["./auth-login-v2.component.scss"],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AuthLoginV2Component implements OnInit {
   //  Public
@@ -20,7 +20,7 @@ export class AuthLoginV2Component implements OnInit {
   public loading = false;
   public submitted = false;
   public returnUrl: string;
-  public error = '';
+  public error = "";
   public passwordTextType: boolean;
 
   // Private
@@ -40,7 +40,7 @@ export class AuthLoginV2Component implements OnInit {
   ) {
     // redirect to home if already logged in
     if (this._authenticationService.currentUserValue) {
-      this._router.navigate(['/']);
+      this._router.navigate(["/"]);
     }
 
     this._unsubscribeAll = new Subject();
@@ -49,17 +49,17 @@ export class AuthLoginV2Component implements OnInit {
     this._coreConfigService.config = {
       layout: {
         navbar: {
-          hidden: true
+          hidden: true,
         },
         menu: {
-          hidden: true
+          hidden: true,
         },
         footer: {
-          hidden: true
+          hidden: true,
         },
         customizer: false,
-        enableLocalStorage: false
-      }
+        enableLocalStorage: false,
+      },
     };
   }
 
@@ -89,10 +89,10 @@ export class AuthLoginV2Component implements OnInit {
       .login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
-        data => {
+        (data) => {
           this._router.navigate([this.returnUrl]);
         },
-        error => {
+        (error) => {
           this.error = error;
           this.loading = false;
         }
@@ -107,17 +107,19 @@ export class AuthLoginV2Component implements OnInit {
    */
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
-      email: ['admin@demo.com', [Validators.required]],
-      password: ['admin', Validators.required]
+      email: ["", [Validators.required]],
+      password: ["", Validators.required],
     });
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this._route.snapshot.queryParams["returnUrl"] || "/";
 
     // Subscribe to config changes
-    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
-      this.coreConfig = config;
-    });
+    this._coreConfigService.config
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((config) => {
+        this.coreConfig = config;
+      });
   }
 
   /**
