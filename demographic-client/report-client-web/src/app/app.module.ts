@@ -32,6 +32,7 @@ import { BarChartViewComponent } from './bar-chart-view/bar-chart-view.component
 import { LineChartViewComponent } from './line-chart-view/line-chart-view.component';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { AuthenticationModule } from "./authentication/authentication.module";
+import { AuthGuard } from "./auth/helpers/auth.guards";
 
 const appRoutes: Routes = [
   {
@@ -47,26 +48,32 @@ const appRoutes: Routes = [
   {
     path: "encode",
     component: EncodeComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: "search",
     component: SearchScreenComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: "uploadscreen",
     component: UploadScreenComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: "upload",
     component: UploadComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: "searchUser",
     component: SearchUserComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: "visualdata",
-    component:VisualDataComponent
+    component:VisualDataComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: "**",

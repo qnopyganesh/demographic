@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -53,13 +53,23 @@ export class AuthenticationService {
    */
   login(email: string, password: string) {
     return this._http
-      .post<any>(`${environment.apiUrl}/users/authenticate`, { email, password })
+      .post<any>("http://localhost:9001/admin/login"+`?username=${email}&password=${password}`,
+       {headers: new HttpHeaders({ "Content-Type": "application/json" })}
+      )
       .pipe(
         map(user => {
+          let newuser = new User();
           // login successful if there's a jwt token in the response
-          if (user && user.token) {
+          if (user) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
+            let newuserobj = new User();
+            newuserobj.firstName = user.username;
+            newuserobj.email = user.username;
+            newuserobj.role = Role.Admin;
+            newuserobj.token = "adadadadad";
+            newuserobj.password = user.password;
+            newuser = newuserobj;
+            localStorage.setItem('currentUser', JSON.stringify(newuserobj));
 
             // Display welcome toast!
             setTimeout(() => {
@@ -73,10 +83,10 @@ export class AuthenticationService {
             }, 2500);
 
             // notify
-            this.currentUserSubject.next(user);
+            this.currentUserSubject.next(newuserobj);
           }
 
-          return user;
+          return newuser;
         })
       );
   }
