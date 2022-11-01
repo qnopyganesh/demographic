@@ -3,6 +3,7 @@ package com.demographicwebapi.demographicwebapi.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.demographicwebapi.demographicwebapi.OtherAlgorithms.Metaphone3;
 import com.demographicwebapi.demographicwebapi.models.Algo;
 import com.demographicwebapi.demographicwebapi.repositories.AlgoRepo;
 import com.google.gson.Gson;
@@ -32,6 +33,12 @@ public class AlgoServiceImpl implements AlgoService {
         Gson gson = new Gson();
         String encodedName = "";
         algoName = algoName.toLowerCase();
+
+        if (algoName.equals("metaphone3")){
+            Metaphone3 encoder = new Metaphone3(name);
+            encoder.Encode();
+            encodedName = encoder.GetMetaph();
+        }
 
         if (algoName.equals("caverphone1")) {
             Caverphone1 encoder = new Caverphone1();

@@ -82,23 +82,6 @@ export class AuthRegisterV2Component implements OnInit {
       return;
     }
 
-    // Login Page
-    // this._router.navigate(["/authentication/logiin-v2"]);
-
-    // Register
-    this.loading = true;
-    this._authenticationService
-      .register(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          this._router.navigate(["/authentication/login-v2"]);
-        },
-        (error) => {
-          this.error = error;
-          this.loading = false;
-        }
-      );
   }
 
   // Lifecycle Hooks
@@ -109,9 +92,12 @@ export class AuthRegisterV2Component implements OnInit {
    */
   ngOnInit(): void {
     this.registerForm = this._formBuilder.group({
-      username: ["", [Validators.required]],
-      // email: ["", [Validators.required, Validators.email]],
-      password: ["", Validators.required],
+      lastname: ['', [Validators.required]],
+      firstname:['',[Validators.required]],
+      email: ['', [Validators.required]],
+      password: ['', Validators.required],
+      dateofbirth:['',[Validators.required]],
+      address:['',[Validators.required]]
     });
 
     // Subscribe to config changes

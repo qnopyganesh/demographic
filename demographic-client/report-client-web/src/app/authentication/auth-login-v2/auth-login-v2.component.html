@@ -1,12 +1,17 @@
 <div class="auth-wrapper auth-v2">
   <div class="auth-inner row m-0">
     <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
+<<<<<<< Updated upstream
       <img
         src="{{ coreConfig.app.appLogoImage }}"
         alt="brand-logo"
         height="28"
       />
       <h2 class="brand-text text-primary ml-1">Vuexy</h2></a
+=======
+      <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" height="28" />
+      <h2 class="brand-text text-primary ml-1"> Structured Demographic Data De-Duplication Portal</h2></a
+>>>>>>> Stashed changes
     >
     <!-- /Brand logo-->
     <!-- Left Text-->
@@ -29,32 +34,11 @@
     <!-- Login-->
     <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-        <h2 class="card-title font-weight-bold mb-1">Welcome to Vuexy! 👋</h2>
-        <p class="card-text mb-2">
-          Please sign-in to your account and start the adventure
-        </p>
-        <ngb-alert [type]="'primary'" [dismissible]="false">
-          <div class="alert-body font-small-2">
-            <p>
-              <small class="mr-50"
-                ><span class="font-weight-bold"
-                  >Admin:
-                  <br />
-                </span>
-                Username: admin | password: admin</small
-              >
-            </p>
-          </div>
-          <span
-            class="feather icon-help-circle auth-help-icon font-medium-3"
-            placement="left"
-            ngbTooltip="This is just for role based JWT authorization demo purpose"
-          ></span>
-        </ngb-alert>
-
+        <h2 class="card-title font-weight-bold mb-1">Welcome to <br>Structured Demographic Data De-Duplication Portal</h2>
+        <p class="card-text mb-2">Please sign-in to your account</p>
         <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
           <div class="alert-body">
-            <p>{{ error }}</p>
+            <p>Invalid Credentials!</p>
           </div>
         </ngb-alert>
 

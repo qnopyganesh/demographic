@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { CoreMenuService } from '@core/components/core-menu/core-menu.service';
+import { Route, Router } from '@angular/router';
+import { AuthenticationService } from 'app/auth/service';
 
 @Component({
   selector: '[core-menu]',
@@ -29,7 +31,7 @@ export class CoreMenuComponent implements OnInit {
    * @param {ChangeDetectorRef} _changeDetectorRef
    * @param {CoreMenuService} _coreMenuService
    */
-  constructor(private _changeDetectorRef: ChangeDetectorRef, private _coreMenuService: CoreMenuService) {
+  constructor(private router:Router,private aithservice:AuthenticationService,private _changeDetectorRef: ChangeDetectorRef, private _coreMenuService: CoreMenuService) {
     // Set the private defaults
     this._unsubscribeAll = new Subject();
   }
@@ -53,5 +55,10 @@ export class CoreMenuComponent implements OnInit {
 
       this._changeDetectorRef.markForCheck();
     });
+  }
+
+  logout(){
+    this.aithservice.logout();
+    this.router.navigate(['/authentication/login-v2']);
   }
 }

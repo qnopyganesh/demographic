@@ -17,6 +17,9 @@ export class EncodeService {
   };
 
   encode(algorithm: String, name: String) {
+    if(algorithm == 'Phonetic Based Algorithm'){
+      algorithm = "Metaphone3";
+    }
     return this.http.post<any>(
       this.url + `?algorithm=${algorithm}&name=${name}`,
       this.httpOptions

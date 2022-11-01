@@ -83,16 +83,6 @@ export class AuthenticationService {
             localStorage.setItem("currentUser", JSON.stringify(newuserobj));
 
             // Display welcome toast!
-            setTimeout(() => {
-              this._toastrService.success(
-                "You have successfully logged in as an " +
-                  newuserobj.role +
-                  " user to Vuexy. Now you can start to explore. Enjoy! 🎉",
-                "👋 Welcome, " + user.username + "!",
-                { toastClass: "toast ngx-toastr", closeButton: true }
-              );
-            }, 2500);
-
             // notify
             this.currentUserSubject.next(newuserobj);
           }

@@ -50,11 +50,11 @@ export const menu: CoreMenu[] = [
     url: "searchUser",
   },
   {
-    id: "visualdata",
-    title: "Visual Data",
-    translate: "Visual Data",
-    type: "item",
-    icon: "chart",
-    url: "visualdata",
+    id:'Data Visualization',
+    title:'Data Visualization',
+    translate:'Data Visualization',
+    type:'item',
+    icon:'bar',
+    url:'visualdata'
   },
 ];

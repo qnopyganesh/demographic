@@ -1,19 +1,8 @@
-<div *ngIf="horizontalMenu" class="navbar-header d-xl-block d-none">
+<div *ngIf="horizontalMenu" >
   <!-- Navbar brand -->
-  <ul class="nav navbar-nav flex-row">
-    <li class="nav-item">
-      <a class="navbar-brand" [routerLink]="['/']">
-        <span class="brand-logo">
-          <img
-            src="{{ coreConfig.app.appLogoImage }}"
-            alt="brand-logo"
-            width="36"
-          />
-        </span>
-        <h2 class="brand-text mb-0">Demographic</h2>
-      </a>
-    </li>
-  </ul>
+  <a class="navbar-brand" [routerLink]="['/']" style = "margin-left:100%;">
+    <h2 class = "text-primary m-2">Structured Demographic Data De-Duplication Portal</h2>
+  </a>
   <!--/ Navbar brand -->
 </div>
 
@@ -30,18 +19,7 @@
     <!--/ Menu Toggler -->
 
     <!-- Toggle skin -->
-    <li class="nav-item d-none d-lg-block">
-      <a
-        type="button"
-        class="nav-link nav-link-style btn"
-        (click)="toggleDarkSkin()"
-      >
-        <span
-          [ngClass]="currentSkin === 'dark' ? 'icon-sun' : 'icon-moon'"
-          class="ficon font-medium-5 feather"
-        ></span>
-      </a>
-    </li>
+
     <!--/ Toggle skin -->
   </div>
 

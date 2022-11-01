@@ -17,26 +17,22 @@
   <input
     class="form-check-input"
     type="radio"
-    name = "inlineRadioOptions"
-    id="inlineRadio1"
-    value="option1"
+    name = "{{radioName}}"
     checked
-    (click)="changeCharttoBar('bar')"
+    (click)="changeCharttoBar()"
     style = "height:10px; width:10px"
   />
-  <label class="form-check-label" for="inlineRadio1"><h2>Bar</h2></label>
+  <label class="form-check-label" for="{{radioName}}"><h2>Bar</h2></label>
 </div>
 <div class="form-check form-check-inline">
   <input
     class="form-check-input"
     type="radio"
-    name = "inlineRadioOptions"
-    id="inlineRadio2"
-    value="option2"
-    (click)="changeCharttoLine('line')"
+    name = "{{radioName}}"
+    (click)="changeCharttoLine()"
     style = "height:10px; width:10px"
     
   />
-  <label class="form-check-label" for="inlineRadio2"><h2>Line</h2></label>
+  <label class="form-check-label" for="{{radioName}}"><h2>Line</h2></label>
 </div>
   

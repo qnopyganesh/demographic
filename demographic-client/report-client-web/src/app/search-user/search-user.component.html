@@ -1,7 +1,7 @@
 <div class="content-wrapper container-xxl p-0">
   <div class="card">
     <div class="card-title">
-      <h2>Search User Details</h2>
+      <h2>Search User By First Name and Last Name</h2>
     </div>
     <div class="search">
       <div class="name">
@@ -72,4 +72,26 @@
       </div>
     </div>
   </div>
+  <!-- Toggle DropDown -->
+
+  <div class="btn-group">
+    <div ngbDropdown>
+      <button
+        ngbDropdownToggle
+        class="btn btn-primary"
+        type="button"
+        id="dropdownMenuButton"
+        rippleEffect
+      >
+        Primary
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+        <a ngbDropdownItem href="javascript:void(0)">Option 1</a>
+        <a ngbDropdownItem href="javascript:void(0)">Option 2</a>
+        <a ngbDropdownItem href="javascript:void(0)">Option 3</a>
+      </div>
+    </div>
+  </div>
+  
+
 </div>

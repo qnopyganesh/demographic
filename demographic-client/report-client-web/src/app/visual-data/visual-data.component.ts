@@ -26,11 +26,17 @@ export type ChartOptions = {
   styleUrls: ['./visual-data.component.scss']
 })
 export class VisualDataComponent implements OnInit {
-
+  opt1 = null
+  opt2 = null
   constructor() { }
 
   ngOnInit(): void {
+    this.opt1 = true;
+    this.opt2 = false;
   }
+
+
+
   
 
 }

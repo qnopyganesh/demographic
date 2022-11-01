@@ -36,6 +36,7 @@ export class LineChartViewComponent implements OnInit{
   public selectedAlgorithm:string;
   @Input() source:string;
   @Input() title:string;
+  @Input() public radioName:string;
   public algorithms = [
     { value: "Caverphone1" },
     { value: "Caverphone2" },
@@ -129,22 +130,25 @@ export class LineChartViewComponent implements OnInit{
         this.ready = true;
         this.series = [];
         namefile.forEach((value,key)=>{
-          this.series.push({
+          if(key != 'Caverphone')
+          {this.series.push({
             name: key,
             data: value[1]
-          });
+          });}
         })
         this.initializechart();
       },
     error => {
     }
     );
+    
   }
   reset(event){
-    console.log((document.getElementById("inlineRadio1") as HTMLInputElement).checked);
     this.initializechart();
   }
-  changeCharttoBar(st){
+  changeCharttoBar(){
+    ((document.getElementsByName(this.radioName) as unknown as HTMLInputElement)[0].checked) = true;
+    ((document.getElementsByName(this.radioName) as unknown as HTMLInputElement)[1].checked) = false;
     this.type = {
       height: 350,
       type: "bar",
@@ -153,8 +157,13 @@ export class LineChartViewComponent implements OnInit{
       }
     }
     this.initializechart();
+
+
+
   }
-  changeCharttoLine(st){
+  changeCharttoLine(){
+    ((document.getElementsByName(this.radioName) as unknown as HTMLInputElement)[0].checked) = false;
+    ((document.getElementsByName(this.radioName) as unknown as HTMLInputElement)[1].checked) = true;
     this.type = {
       height: 350,
       type: "line",
@@ -163,5 +172,7 @@ export class LineChartViewComponent implements OnInit{
       }
     }
     this.initializechart();
+
+
   }
 }

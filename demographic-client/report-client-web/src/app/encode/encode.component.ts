@@ -26,7 +26,7 @@ export class EncodeComponent implements OnInit {
     { value: "ColognePhonetic" },
     { value: "DoubleMetaphone" },
     { value: "MatchRatingApproachEncoder" },
-    // { value: "Metaphone" },
+    { value: "Phonetic Based Algorithm"},
     { value: "Nysiis" },
     { value: "RefinedSoundex" },
   ];
