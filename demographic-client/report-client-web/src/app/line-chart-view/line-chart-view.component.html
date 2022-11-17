@@ -13,26 +13,29 @@
     ></apx-chart>
   </div>
 <br>
-<div class="form-check form-check-inline">
-  <input
+<!-- <div class="form-check form-check-inline"> -->
+  <button (click) = "changeCharttoBar()" > BAR </button>
+  <!-- <input
     class="form-check-input"
     type="radio"
-    name = "{{radioName}}"
+    name = {{radioName}}
     checked
     (click)="changeCharttoBar()"
     style = "height:10px; width:10px"
   />
-  <label class="form-check-label" for="{{radioName}}"><h2>Bar</h2></label>
-</div>
-<div class="form-check form-check-inline">
+  <label class="form-check-label" for={{radioName}}><h2>Bar</h2></label> -->
+<!-- </div> -->
+<!-- <div class="form-check form-check-inline">
   <input
     class="form-check-input"
     type="radio"
-    name = "{{radioName}}"
+    name = {{radioName}}
     (click)="changeCharttoLine()"
     style = "height:10px; width:10px"
     
   />
-  <label class="form-check-label" for="{{radioName}}"><h2>Line</h2></label>
-</div>
+  <label class="form-check-label" for={{radioName}}><h2>Line</h2></label> -->
+  <button  (click) = "changeCharttoLine()" > Line </button>
+
+<!-- </div> -->
   

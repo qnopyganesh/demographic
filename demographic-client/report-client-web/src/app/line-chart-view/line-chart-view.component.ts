@@ -147,8 +147,8 @@ export class LineChartViewComponent implements OnInit{
     this.initializechart();
   }
   changeCharttoBar(){
-    ((document.getElementsByName(this.radioName) as unknown as HTMLInputElement)[0].checked) = true;
-    ((document.getElementsByName(this.radioName) as unknown as HTMLInputElement)[1].checked) = false;
+    // ((document.getElementsByName(this.radioName)[0]) as HTMLInputElement).checked = true;
+
     this.type = {
       height: 350,
       type: "bar",
@@ -158,12 +158,9 @@ export class LineChartViewComponent implements OnInit{
     }
     this.initializechart();
 
-
-
   }
   changeCharttoLine(){
-    ((document.getElementsByName(this.radioName) as unknown as HTMLInputElement)[0].checked) = false;
-    ((document.getElementsByName(this.radioName) as unknown as HTMLInputElement)[1].checked) = true;
+    // ((document.getElementsByName(this.radioName)[1]) as HTMLInputElement).checked = true;
     this.type = {
       height: 350,
       type: "line",

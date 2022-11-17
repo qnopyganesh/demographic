@@ -69,9 +69,9 @@ public class NameIndexController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please Upload CSV File Only");
     }
 
-    @GetMapping(value = "/get/userdetails/{firstname}/{lastname}")
-    public ResponseEntity<?> getUserDetails(@PathVariable("firstname") String firstname, @PathVariable("lastname") String lastname){
-        return ResponseEntity.ok(nameIndexService.fetchUserDetails(firstname, lastname));
+    @GetMapping(value = "/get/userdetails/{firstname}/{lastname}/{emailId}/{phonenumber}/{dob}")
+    public ResponseEntity<?> getUserDetails(@PathVariable("firstname") String firstname, @PathVariable("lastname") String lastname,String emailId,String phonenumber,String dob){
+        return ResponseEntity.ok(nameIndexService.fetchUserDetails(firstname, lastname,emailId,phonenumber,dob));
     }
 
 }

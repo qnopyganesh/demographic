@@ -43,9 +43,9 @@ export class EncodeService {
     return this.http.get<any>(this.newUrl + `algo`, this.httpOptions);
   }
 
-  fetchUserDetails(firstName: String, lastName: String) {
+  fetchUserDetails(firstName: String, lastName: String,address:string, dob:string,phonenumber:string,emailId:string) {
     return this.http.get<any>(
-      this.searchUserUrl + `${firstName}/${lastName}`,
+      this.searchUserUrl + `${firstName}/${lastName}/${emailId}/${phonenumber}/${dob}`,
       this.httpOptions
     );
   }

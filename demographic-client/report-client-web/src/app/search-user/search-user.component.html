@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="" *ngIf="showMore==false" >
+    <div *ngIf="showMore==false" >
       <div class="search mt-2">
         <div class="name">
           <label for="basicInput">Enter Email</label>
@@ -38,6 +38,7 @@
             class="form-control"
             id="basicInput"
             placeholder="Jainish@gmail.com"
+            [(ngModel)]="emailId"
           />
         </div>
         <div class="lastName">
@@ -49,6 +50,7 @@
             class="form-control"
             id="basicInput"
             placeholder="+91 1234567890"
+            [(ngModel)]="phonenumber"
           />
         </div>
       </div>
@@ -58,10 +60,12 @@
           <label for="basicInput">Enter D.O.B</label>
 
           <input
-            type="text"
+            type="date"
             class="form-control"
             id="basicInput"
             placeholder="DD/MM/YYYY"
+            [(ngModel)]="dob"
+            (change) = "displaydate()"
           />
         </div>
         <div class="lastName">
@@ -71,6 +75,7 @@
             class="form-control"
             id="basicInput"
             placeholder="Address"
+            [(ngModel)]="address"
           />
         </div>
       </div>

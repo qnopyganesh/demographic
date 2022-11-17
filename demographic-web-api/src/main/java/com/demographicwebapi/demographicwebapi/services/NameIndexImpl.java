@@ -186,7 +186,16 @@ public class NameIndexImpl implements NameIndexService {
     }
 
     @Override
-    public User fetchUserDetails(String firstname, String lastname){
-        return userdao.findByFirstnameAndLastname(firstname, lastname);
+    public User fetchUserDetails(String firstname, String lastname,String emailId, String phonenumber, String dob){
+        List<User> result = userdao.findByFirstnameAndLastname(firstname, lastname);
+        for(User user:result){
+            if(user.getEmail_id().compareTo(emailId) == 0  && emailId.compareTo("") != 0){
+                return user;
+            }
+            if(user.getContact_number().compareTo(phonenumber) == 0 && phonenumber.compareTo("") != 0){
+                return user;
+            }
+        }
+        return null;
     }
 }

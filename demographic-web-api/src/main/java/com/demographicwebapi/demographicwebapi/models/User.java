@@ -40,8 +40,14 @@ public class User {
     @Column(name = "latitude")
     private Double latitude;
 
+    @Column(name = "email_id")
+    private String email_id;
+
     @Column(name = "longitude")
     private Double longitude;
+
+    @Column(name = "contact")
+    private String contact_number;
 
     public User(String firstname, String lastname, String dob, String gender, String address, String firstnameEncoded,
             String lastnameEncoded, Double latitude, Double longitude) {

@@ -9,22 +9,19 @@ import { EncodeService } from "app/service/encode.service";
 export class SearchUserComponent implements OnInit {
   constructor(private encodeService: EncodeService) {}
 
-  /**
-   * User Location Component
-   */
   public userLocationZoom = 15;
   public userLocationCenter: google.maps.LatLngLiteral;
 
   firstName: String = "";
   lastName: String = "";
+  emailId:string = "";
+  dob:string = "";
+  phonenumber:string = "";
+  address:string = "";
   showMore:boolean=true;
 
   user: any;
-  /**
-   * On init
-   */
   ngOnInit(): void {
-    // Fetch Geolocation
     navigator.geolocation.getCurrentPosition((position) => {
       this.userLocationCenter = {
         lat: 19.2045299,
@@ -35,7 +32,7 @@ export class SearchUserComponent implements OnInit {
 
   getUserDetails() {
     this.encodeService
-      .fetchUserDetails(this.firstName, this.lastName)
+      .fetchUserDetails(this.firstName, this.lastName,this.address,this.dob,this.phonenumber,this.emailId)
       .subscribe((data) => {
         this.user = data;
         this.userLocationCenter = {
@@ -53,7 +50,8 @@ export class SearchUserComponent implements OnInit {
     this.showMore=!this.showMore;
   }
 
-
+  displaydate(){
+    console.log(this.dob);
+  }
 }
 
-// Structured Demographic Data Deduplication
