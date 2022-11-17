@@ -28,7 +28,6 @@ import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { SearchUserComponent } from "./search-user/search-user.component";
 import { GoogleMapsModule } from "@angular/google-maps";
 import { VisualDataComponent } from "./visual-data/visual-data.component";
-import { BarChartViewComponent } from "./bar-chart-view/bar-chart-view.component";
 import { LineChartViewComponent } from "./line-chart-view/line-chart-view.component";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { AuthenticationModule } from "./authentication/authentication.module";
@@ -90,7 +89,6 @@ const appRoutes: Routes = [
     UploadComponent,
     SearchUserComponent,
     VisualDataComponent,
-    BarChartViewComponent,
     LineChartViewComponent,
   ],
   imports: [
