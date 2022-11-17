@@ -48,3 +48,10 @@ app-navbar-bookmark {
     }
   }
 }
+
+.horizontal-Menu{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}

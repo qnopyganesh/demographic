@@ -1,7 +1,7 @@
 <div class="content-wrapper container-xxl p-0">
   <div class="card">
     <div class="card-title">
-      <h2>Search User By First Name and Last Name</h2>
+      <h2>Search User By Details</h2>
     </div>
     <div class="search">
       <div class="name">
@@ -27,6 +27,55 @@
         />
       </div>
     </div>
+
+    <div class="">
+      <div class="search mt-2">
+        <div class="name">
+          <label for="basicInput">Enter Email</label>
+
+          <input
+            type="text"
+            class="form-control"
+            id="basicInput"
+            placeholder="Jainish@gmail.com"
+          />
+        </div>
+        <div class="lastName">
+          <label for="basicInput">Enter Contact    
+            
+            Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="basicInput"
+            placeholder="+91 1234567890"
+          />
+        </div>
+      </div>
+
+      <div class="search mt-2">
+        <div class="name">
+          <label for="basicInput">Enter D.O.B</label>
+
+          <input
+            type="text"
+            class="form-control"
+            id="basicInput"
+            placeholder="DD/MM/YYYY"
+          />
+        </div>
+        <div class="lastName">
+          <label for="basicInput">Enter Address</label>
+          <input
+            type="text"
+            class="form-control"
+            id="basicInput"
+            placeholder="Address"
+          />
+        </div>
+      </div>
+    </div>
+
     <div class="my-2">
       <button
         type="button"
@@ -36,7 +85,27 @@
       >
         Search
       </button>
+      <button
+        type="button"
+        class="btn btn-primary ml-2"
+        (click)="getUserDetails()"
+        rippleEffect
+        ng-if="showMore==true"
+        
+      >
+        +
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary ml-2"
+        (click)="getUserDetails()"
+        rippleEffect
+        
+      >
+        -
+      </button>
     </div>
+
     <div class="search" *ngIf="this.user">
       <div class="name">
         <div class="card details">
@@ -65,33 +134,10 @@
           height="400px"
           width="100%"
           [center]="userLocationCenter"
-          
         >
           <map-marker [position]="userLocationCenter"></map-marker>
         </google-map>
       </div>
     </div>
   </div>
-  <!-- Toggle DropDown -->
-
-  <div class="btn-group">
-    <div ngbDropdown>
-      <button
-        ngbDropdownToggle
-        class="btn btn-primary"
-        type="button"
-        id="dropdownMenuButton"
-        rippleEffect
-      >
-        Primary
-      </button>
-      <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-        <a ngbDropdownItem href="javascript:void(0)">Option 1</a>
-        <a ngbDropdownItem href="javascript:void(0)">Option 2</a>
-        <a ngbDropdownItem href="javascript:void(0)">Option 3</a>
-      </div>
-    </div>
-  </div>
-  
-
 </div>
