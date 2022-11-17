@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="">
+    <div class="" *ngIf="showMore==false" >
       <div class="search mt-2">
         <div class="name">
           <label for="basicInput">Enter Email</label>
@@ -88,9 +88,10 @@
       <button
         type="button"
         class="btn btn-primary ml-2"
-        (click)="getUserDetails()"
+        (click)="showOptionalFields()"
         rippleEffect
-        ng-if="showMore==true"
+
+        *ngIf="showMore==true"
         
       >
         +
@@ -98,7 +99,8 @@
       <button
         type="button"
         class="btn btn-primary ml-2"
-        (click)="getUserDetails()"
+        (click)="hideOptionalFields()"
+        *ngIf="showMore==false"
         rippleEffect
         
       >

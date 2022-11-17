@@ -45,6 +45,15 @@ export class SearchUserComponent implements OnInit {
         console.log(data);
       });
   }
+
+  showOptionalFields(){
+    this.showMore=!this.showMore;
+  }
+  hideOptionalFields(){
+    this.showMore=!this.showMore;
+  }
+
+
 }
 
 // Structured Demographic Data Deduplication
