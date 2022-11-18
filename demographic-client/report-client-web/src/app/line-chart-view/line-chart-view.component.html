@@ -1,41 +1,35 @@
-<div class="d-flex">
+<div class="d-flex"></div>
+
+<div *ngIf="ready" id="baraccuracychart">
+  <apx-chart
+    id="chart"
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [dataLabels]="chartOptions.dataLabels"
+    [grid]="chartOptions.grid"
+    [stroke]="chartOptions.stroke"
+    [title]="chartOptions.title"
+  ></apx-chart>
+</div>
+<br />
+<!-- <div class="form-check form-check-inline"> -->
+<div class="d-flex justify-content-center">
+  <button
+    (click)="changeCharttoBar()"
+    class="btn btn-outline-primary btn-primary waves-effect {{
+      this.radioName
+    }} mx-1"
+  >
+    BAR
+  </button>
+
+  <button
+    (click)="changeCharttoLine()"
+    class="btn btn-outline-primary waves-effect {{ this.radioName }} mx-1"
+  >
+    Line
+  </button>
 </div>
 
-<div *ngIf = "ready"   id = "baraccuracychart">
-    <apx-chart id = "chart"
-      [series]="chartOptions.series"
-      [chart]="chartOptions.chart"
-      [xaxis]="chartOptions.xaxis"
-      [dataLabels]="chartOptions.dataLabels"
-      [grid]="chartOptions.grid"
-      [stroke]="chartOptions.stroke"
-      [title]="chartOptions.title"
-    ></apx-chart>
-  </div>
-<br>
-<!-- <div class="form-check form-check-inline"> -->
-  <button (click) = "changeCharttoBar()" > BAR </button>
-  <!-- <input
-    class="form-check-input"
-    type="radio"
-    name = {{radioName}}
-    checked
-    (click)="changeCharttoBar()"
-    style = "height:10px; width:10px"
-  />
-  <label class="form-check-label" for={{radioName}}><h2>Bar</h2></label> -->
 <!-- </div> -->
-<!-- <div class="form-check form-check-inline">
-  <input
-    class="form-check-input"
-    type="radio"
-    name = {{radioName}}
-    (click)="changeCharttoLine()"
-    style = "height:10px; width:10px"
-    
-  />
-  <label class="form-check-label" for={{radioName}}><h2>Line</h2></label> -->
-  <button  (click) = "changeCharttoLine()" > Line </button>
-
-<!-- </div> -->
-  
