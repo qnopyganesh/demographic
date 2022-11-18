@@ -41,13 +41,13 @@ public class User {
     private Double latitude;
 
     @Column(name = "email_id")
-    private String email_id;
+    private String emailId;
 
     @Column(name = "longitude")
     private Double longitude;
 
     @Column(name = "contact")
-    private String contact_number;
+    private String contact;
 
     public User(String firstname, String lastname, String dob, String gender, String address, String firstnameEncoded,
             String lastnameEncoded, Double latitude, Double longitude) {
