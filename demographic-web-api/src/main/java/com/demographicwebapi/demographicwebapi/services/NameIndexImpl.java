@@ -189,10 +189,10 @@ public class NameIndexImpl implements NameIndexService {
     public User fetchUserDetails(String firstname, String lastname,String emailId, String phonenumber, String dob){
         List<User> result = userdao.findByFirstnameAndLastname(firstname, lastname);
         for(User user:result){
-            if(user.getEmailId().compareTo(emailId) == 0  && emailId.compareTo("") != 0){
+            if(user.getEmailId() != null && user.getEmailId().compareTo(emailId) == 0  && emailId.compareTo("None") != 0){
                 return user;
             }
-            if(user.getContact().compareTo(phonenumber) == 0 && phonenumber.compareTo("") != 0){
+            if(user.getContact() != null && user.getContact().compareTo(phonenumber) == 0 && phonenumber.compareTo("None") != 0){
                 return user;
             }
         }

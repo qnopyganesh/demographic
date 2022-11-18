@@ -70,7 +70,7 @@ public class NameIndexController {
     }
 
     @GetMapping(value = "/get/userdetails/{firstname}/{lastname}/{emailId}/{phonenumber}/{dob}")
-    public ResponseEntity<?> getUserDetails(@PathVariable("firstname") String firstname, @PathVariable("lastname") String lastname,String emailId,String phonenumber,String dob){
+    public ResponseEntity<?> getUserDetails(@PathVariable("firstname") String firstname, @PathVariable("lastname") String lastname,@PathVariable("emailId") String emailId,@PathVariable("phonenumber") String phonenumber,@PathVariable("dob") String dob){
         return ResponseEntity.ok(nameIndexService.fetchUserDetails(firstname, lastname,emailId,phonenumber,dob));
     }
 

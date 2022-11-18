@@ -14,11 +14,12 @@ export class SearchUserComponent implements OnInit {
 
   firstName: String = "";
   lastName: String = "";
-  emailId:string = "";
-  dob:string = "";
-  phonenumber:string = "";
-  address:string = "";
+  emailId:string = "None";
+  dob:string = "None";
+  phonenumber:string = "None";
+  address:string = "None";
   showMore:boolean=true;
+  rows = []
 
   user: any;
   ngOnInit(): void {
@@ -39,13 +40,23 @@ export class SearchUserComponent implements OnInit {
           lat: this.user.latitude,
           lng: this.user.longitude,
         };
+        let nameEncoded:[string]= JSON.parse(this.user.firstnameEncoded);
+        let snameEncoded :[string]= JSON.parse(this.user.lastnameEncoded);
         console.log(data);
+        console.log(nameEncoded);
+        let size = nameEncoded.length;
+        for(let i=0;i<size;i++){
+          let temp = nameEncoded[i].split(":");
+          let temp1 = snameEncoded[i].split(":");
+          this.rows.push([temp[0],temp[1],temp1[1]]);
+        }
       });
   }
 
   showOptionalFields(){
     this.showMore=!this.showMore;
   }
+
   hideOptionalFields(){
     this.showMore=!this.showMore;
   }

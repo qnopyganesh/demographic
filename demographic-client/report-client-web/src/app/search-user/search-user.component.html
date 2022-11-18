@@ -133,6 +133,28 @@
             <h4>Gender <span data-feather="user" class="mr-25"></span></h4>
             <div>{{ this.user.gender }}</div>
           </div>
+          <div class="user-contact d-flex justify-content-between mx-3">
+            <h4>Contact No. <span data-feather="phone-call" class="mr-25"></span></h4>
+            <div>{{ this.user.contact }}</div>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Algorithm</th>
+                  <th>First Name Encoded</th>
+                  <th>Last Name Encoded</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let n of rows">
+                  <td>{{ n[0]}}</td>
+                  <td>{{ n[1] }}</td>
+                  <td>{{ n[2] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class="name">
