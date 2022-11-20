@@ -5,7 +5,7 @@
     </div>
     <div class="search">
       <div class="name">
-        <label for="basicInput">Enter Name</label>
+        <label for="basicInput">Enter Name<span class="inputRequired">*</span></label>
 
         <input
           type="text"
@@ -13,11 +13,12 @@
           id="basicInput"
           placeholder="FirstName"
           [(ngModel)]="firstName"
+          required
         />
       </div>
 
       <div class="lastName">
-        <label for="basicInput">Enter LastName</label>
+        <label for="basicInput">Enter LastName<span class="inputRequired">*</span></label>
         <input
           type="text"
           class="form-control"

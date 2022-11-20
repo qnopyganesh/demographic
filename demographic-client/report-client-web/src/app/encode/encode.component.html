@@ -4,7 +4,7 @@
    <h2>Encode Value</h2>
   </div>
 <div class="form-group">
-  <label for="basicInput">Enter Text to be Encoded</label>
+  <label for="basicInput">Enter Text to be Encoded <span class="inputRequired">*</span></label>
   <input
     type="text"
     class="form-control"
@@ -18,13 +18,13 @@
 
 <div class="d-flex">
   <div class="form-group selectBox mr-3">
-    <label for="basicSelect">Select Algorithm</label
+    <label for="basicSelect">Select Algorithm <span class="inputRequired">*</span></label
     ><select
       id="basicSelect"
       class="form-control"
       [(ngModel)]="selectedAlgorithm"
     >
-      <option value="Metaphone" >Metaphone</option>
+      <option value="Metaphone" >Metaphone </option>
       <option
         *ngFor="let algorithm of algorithms"
         value="{{ algorithm.value }}"
@@ -45,7 +45,7 @@
   </div>
 </div>
 <div class="form-group">
-  <label for="basicInput">Encoded Value</label>
+  <label for="basicInput">Encoded Value </label>
   <input
     #clipboardValue
     type="text"

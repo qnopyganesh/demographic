@@ -7,7 +7,7 @@
     <div class="search">
       <div class="w-100">
         <div class="form-group selectBox mr-2">
-          <label for="basicSelect">Select Algorithm</label>
+          <label for="basicSelect">Select Algorithm  <span class="inputRequired">*</span></label>
           <div class="input1">
             <select
               id="basicSelect"
@@ -26,7 +26,7 @@
       </div>
       <div class="w-100">
         <div class="form-group selectBox mr-2">
-          <label for="basicSelect">Select Algorithm</label>
+          <label for="basicSelect">Select Algorithm  <span class="inputRequired">*</span></label>
           <div class="input1">
             <select
               id="basicSelect"
@@ -47,7 +47,7 @@
 
     <div class="search">
       <div class="name">
-        <label for="basicInput">Enter Name</label>
+        <label for="basicInput">Enter Name <span class="inputRequired">*</span></label>
         <input
           type="text"
           class="form-control"
@@ -67,7 +67,7 @@
         </div>
         <div class="shadow p-3 mb-5 bg-white rounded" *ngIf="fname.length > 0">
           <div class="card-title">
-            <h2>First Name</h2>
+            <h2>First Name </h2>
           </div>
           <div class="table-responsive">
             <table class="table">
@@ -94,7 +94,7 @@
       </div>
 
       <div class="lastName">
-        <label for="basicInput">Enter Name</label>
+        <label for="basicInput">Enter Name  <span class="inputRequired">*</span></label>
         <input
           type="text"
           class="form-control"
@@ -114,7 +114,7 @@
         </div>
         <div class="shadow p-3 mb-5 bg-white rounded" *ngIf="sname.length > 0">
           <div class="card-title">
-            <h2>Last Name</h2>
+            <h2>Last Name </h2>
           </div>
           <div class="table-responsive" *ngIf="sname.length > 0">
             <table class="table">
