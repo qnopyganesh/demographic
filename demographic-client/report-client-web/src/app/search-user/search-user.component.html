@@ -123,14 +123,15 @@
         -
       </button>
     </div>
-    <div  *ngIf = "this.user ; then search else noresult"></div>
+    <div  *ngIf = "this.users.length > 0 ; then search else noresult"></div>
     <ng-template #search>
-      <div class="search" *ngIf="this.user">
+      <div class="search" >
         <div class="name">
-          <div class="card details">
+          <div class="card details" *ngFor = "let user of users; let i = index" (click)="showMoreDetails(i)">
             <h3 class="user-fullname d-flex justify-content-center">
               {{ this.user.firstname + " " + this.user.lastname }}
             </h3>
+            <div class="showMoreDetails" *ngIf="showMoreUserDetails[i]==true" >
             <div class="user-address d-flex justify-content-between mx-3">
               <h4>Address <span data-feather="map" class="mr-25"></span></h4>
               <div>{{ this.user.address }}</div>
@@ -151,24 +152,7 @@
               </h4>
               <div>{{ this.user.contact }}</div>
             </div>
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Algorithm</th>
-                    <th>First Name Encoded</th>
-                    <th>Last Name Encoded</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let n of rows">
-                    <td>{{ n[0]}}</td>
-                    <td>{{ n[1] }}</td>
-                    <td>{{ n[2] }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          </div>
           </div>
         </div>
         <div class="name">

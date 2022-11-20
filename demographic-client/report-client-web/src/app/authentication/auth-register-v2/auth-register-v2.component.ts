@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { takeUntil, first } from "rxjs/operators";
 import { Subject } from "rxjs";
@@ -71,9 +71,22 @@ export class AuthRegisterV2Component implements OnInit {
     this.passwordTextType = !this.passwordTextType;
   }
 
+  myRecaptcha:boolean;
+ 
+  onScriptLoad() {
+      console.log('Google reCAPTCHA loaded and is ready for use!')
+  }
+
+  onScriptError() {
+      console.log('Something went long when loading the Google reCAPTCHA')
+  }
+
   /**
    * On Submit
    */
+
+
+
   onSubmit() {
     this.submitted = true;
     this.loading = true;

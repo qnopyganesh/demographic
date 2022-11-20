@@ -8,7 +8,7 @@ import "hammerjs";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule } from "@ngx-translate/core";
 import { ToastrModule, ToastrService } from "ngx-toastr"; // For auth after login toast
-
+import { RecaptchaModule } from 'angular-google-recaptcha';
 import { CoreModule } from "@core/core.module";
 import { CoreCommonModule } from "@core/common.module";
 import { CoreSidebarModule, CoreThemeCustomizerModule } from "@core/components";
@@ -98,6 +98,9 @@ const appRoutes: Routes = [
     NgApexchartsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    RecaptchaModule.forRoot({
+      siteKey: '6LeKnB8jAAAAAMFanHdPjoosm0a0tCuDy2bqACY3',
+  }),
     RouterModule.forRoot(appRoutes, {
       scrollPositionRestoration: "enabled", // Add options right here
       relativeLinkResolution: "legacy",

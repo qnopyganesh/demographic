@@ -161,6 +161,11 @@
               </label>
             </div>
           </div>
+          <recaptcha
+          [(ngModel)]="myRecaptcha"
+          (scriptLoad)="onScriptLoad()"
+          (scriptError)="onScriptError()"
+        ></recaptcha>
           <button class="btn btn-primary btn-block" tabindex="5" rippleEffect>Sign up</button>
         </form>
         <p class="text-center mt-2">

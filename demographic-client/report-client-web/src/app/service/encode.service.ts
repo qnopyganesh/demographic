@@ -53,11 +53,16 @@ export class EncodeService {
   fetchUserDetails(
     firstName: String,
     lastName: String,
-    address: string = "None",
-    dob: string = "None",
-    phonenumber: string = "None",
-    emailId: string = "None"
+    address: string,
+    dob: string,
+    phonenumber: string,
+    emailId: string
   ) {
+    if(address == ""){address = "None"}
+    if(dob == ""){dob = "None"}
+    if(phonenumber == ""){phonenumber = "None"}
+    if(emailId == ""){emailId = "None"}
+    console.log(emailId)
     return this.http.get<any>(
       this.searchUserUrl +
         `${firstName}/${lastName}/${emailId}/${phonenumber}/${dob}`,
@@ -65,35 +70,5 @@ export class EncodeService {
     );
   }
 
-  signup(username, password, contact, address, firstname, lastname, dob) {
-    return this.http
-      .post<any>(
-        "http://localhost:9001/admin/signUp" +
-          `?username=${username}&password=${password}&contact=${contact}&address=${address}&firstname=${firstname}&lastname=${lastname}&dob=${dob}`,
-        { headers: new HttpHeaders({ "Content-Type": "application/json" }) }
-      )
-      .pipe(
-        map((user) => {
-          let newuser = new User();
-          // login successful if there's a jwt token in the response
-          if (user) {
-            console.log(user.username);
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            let newuserobj = new User();
-            newuserobj.username = user.username;
-            newuserobj.role = Role.Admin;
-            newuserobj.token = "adadadadad";
-            newuserobj.password = user.password;
-            newuser = newuserobj;
-            localStorage.setItem("currentUser", JSON.stringify(newuserobj));
 
-            // Display welcome toast!
-            // notify
-            this.currentUserSubject.next(newuserobj);
-          }
-
-          return newuser;
-        })
-      );
-  }
 }

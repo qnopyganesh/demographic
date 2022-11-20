@@ -14,12 +14,14 @@ export class SearchUserComponent implements OnInit {
   submitted = false;
   firstName: String = "";
   lastName: String = "";
-  emailId: string = "None";
-  dob: string = "None";
-  phonenumber: string = "None";
-  address: string = "None";
+  emailId: string = "";
+  dob: string = "";
+  phonenumber: string = "";
+  address: string = "";
   showMore: boolean = true;
-  rows = [];
+  showMoreUserDetails;
+
+  users = [];
 
   user: any;
   ngOnInit(): void {
@@ -50,26 +52,48 @@ export class SearchUserComponent implements OnInit {
         if(data.length == 0){
           return ;
         } 
-        this.user = data;
-        this.userLocationCenter = {
-          lat: this.user.latitude,
-          lng: this.user.longitude,
-        };
-        let nameEncoded: [string] = JSON.parse(this.user.firstnameEncoded);
-        let snameEncoded: [string] = JSON.parse(this.user.lastnameEncoded);
-        console.log(data);
-        console.log(nameEncoded);
-        let size = nameEncoded.length;
-        for (let i = 0; i < size; i++) {
-          let temp = nameEncoded[i].split(":");
-          let temp1 = snameEncoded[i].split(":");
-          this.rows.push([temp[0], temp[1], temp1[1]]);
+        this.users = data;
+        this.showMoreUserDetails = [];
+        for(let i = 0 ; i < this.users.length; i++){
+          this.showMoreUserDetails.push(false)
         }
+        // this.user = data;
+        // this.userLocationCenter = {
+        //   lat: this.user.latitude,
+        //   lng: this.user.longitude,
+        // };
+        // let nameEncoded: [string] = JSON.parse(this.user.firstnameEncoded);
+        // let snameEncoded: [string] = JSON.parse(this.user.lastnameEncoded);
+        // console.log(data);
+        // console.log(nameEncoded);
+        // let size = nameEncoded.length;
+        // for (let i = 0; i < size; i++) {
+        //   let temp = nameEncoded[i].split(":");
+        //   let temp1 = snameEncoded[i].split(":");
+        //   this.rows.push([temp[0], temp[1], temp1[1]]);
+        // }
+        console.log(data);
       });
   }
 
   showOptionalFields() {
     this.showMore = !this.showMore;
+  }
+
+  showMoreDetails(index){
+    console.log(index);
+    this.showMoreUserDetails[index] = !this.showMoreUserDetails[index];
+    if(this.showMoreUserDetails[index] == true){
+      for(let i = 0 ; i < this.users.length; i++){
+        if(i != index){
+          this.showMoreUserDetails[i] = false;
+        }
+      }
+      this.userLocationCenter = {
+        lat : this.users[index].latitude,
+        lng : this.users[index].longitude
+      }
+    }
   }
 
   hideOptionalFields() {
