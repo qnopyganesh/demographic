@@ -1,69 +1,76 @@
 <div class="content-wrapper container-xxl p-0">
-<div class = "card">
-  <div class = "card-title">
-   <h2>Encode Value</h2>
-  </div>
-<div class="form-group">
-  <label for="basicInput">Enter Text to be Encoded <span class="inputRequired">*</span></label>
-  <input
-    type="text"
-    class="form-control"
-    id="basicInput"
-    placeholder="Type text here to encode"
-    [(ngModel)]="name"
-    style ="width:30%"
-  />
-</div>
+  <div class="card">
+    <div class="card-title">
+      <h2>Encode Value</h2>
+    </div>
+    <form [formGroup]="encodeForm" (ngSubmit)="encode()">
+      <div class="form-group">
+        <label for="basicInput"
+          >Enter Text to be Encoded <span class="inputRequired">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="basicInput"
+          [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+          placeholder="Type text here to encode"
+          formControlName="name"
+          style="width: 30%"
+        />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">Input is required</div>
+        </div>
+      </div>
 
+      <div class="d-flex">
+        <div class="form-group selectBox mr-3">
+          <label for="basicSelect"
+            >Select Algorithm <span class="inputRequired">*</span></label
+          ><select
+            id="basicSelect"
+            class="form-control"
+            formControlName="selectedAlgorithm"
+          >
+            <option value="Metaphone">Metaphone</option>
+            <option
+              *ngFor="let algorithm of algorithms"
+              value="{{ algorithm.value }}"
+            >
+              {{ algorithm.value }}
+            </option>
+          </select>
+        </div>
+        <div class="my-2">
+          <button
+            type="button"
+            class="btn btn-primary"
+            rippleEffect
+            type="submit"
+          >
+            Encode
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="form-group">
+      <label for="basicInput">Encoded Value </label>
+      <input
+        #clipboardValue
+        type="text"
+        class="form-control"
+        id="basicInput"
+        style="width: 30%"
+        [(ngModel)]="encodedText"
+      />
+    </div>
 
-<div class="d-flex">
-  <div class="form-group selectBox mr-3">
-    <label for="basicSelect">Select Algorithm <span class="inputRequired">*</span></label
-    ><select
-      id="basicSelect"
-      class="form-control"
-      [(ngModel)]="selectedAlgorithm"
-    >
-      <option value="Metaphone" >Metaphone </option>
-      <option
-        *ngFor="let algorithm of algorithms"
-        value="{{ algorithm.value }}"
-      >
-        {{ algorithm.value }}
-      </option>
-    </select>
-  </div>
-  <div class="my-2">
     <button
-      type="button"
-      class="btn btn-primary"
-      (click)="encode()"
+      class="btn btn-outline-primary"
+      (click)="copyCode(clipboardValue.value)"
       rippleEffect
+      style="min-width: 5%; max-width: 10%"
     >
-      Encode
+      Copy!
     </button>
   </div>
-</div>
-<div class="form-group">
-  <label for="basicInput">Encoded Value </label>
-  <input
-    #clipboardValue
-    type="text"
-    class="form-control"
-    id="basicInput"
-    style= "width:30%;"
-    [(ngModel)]="encodedText"
-  />
-</div>
-
-<button
-  class="btn btn-outline-primary"
-  (click)="copyCode(clipboardValue.value)"
-  rippleEffect
-  style="min-width:5%;max-width: 10%;"
->
-  Copy!
-</button>
-
-</div>
 </div>

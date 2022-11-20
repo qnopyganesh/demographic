@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { EncodeService } from "app/service/encode.service";
 import { ToastrService } from "ngx-toastr";
 
@@ -8,16 +9,9 @@ import { ToastrService } from "ngx-toastr";
   styleUrls: ["./encode.component.scss"],
 })
 export class EncodeComponent implements OnInit {
-  ngOnInit(): void {}
-
-  constructor(
-    private toastr: ToastrService,
-    private encodeService: EncodeService
-  ) {}
-
-  selectedAlgorithm: string = "Caverphone1";
+  public encodeForm: FormGroup;
+  public submitted = false;
   encodedText: string = "";
-  name: String = "";
   algorithms = [
     { value: "Caverphone1" },
     { value: "Caverphone2" },
@@ -26,11 +20,26 @@ export class EncodeComponent implements OnInit {
     { value: "ColognePhonetic" },
     { value: "DoubleMetaphone" },
     { value: "MatchRatingApproachEncoder" },
-    { value: "Phonetic Based Algorithm"},
+    { value: "Phonetic Based Algorithm" },
     { value: "Nysiis" },
     { value: "RefinedSoundex" },
   ];
+  ngOnInit(): void {
+    this.encodeForm = this._formBuilder.group({
+      name: ["", [Validators.required]],
+      selectedAlgorithm: ["Caverphone1", [Validators.required]],
+    });
+  }
 
+  constructor(
+    private toastr: ToastrService,
+    private encodeService: EncodeService,
+    private _formBuilder: FormBuilder
+  ) {}
+
+  get f() {
+    return this.encodeForm.controls;
+  }
   copyCode(inputTextValue) {
     const selectBox = document.createElement("textarea");
     selectBox.style.position = "fixed";
@@ -48,10 +57,13 @@ export class EncodeComponent implements OnInit {
   }
 
   encode() {
+    this.submitted = true;
+    if (this.encodeForm.invalid) {
+      return;
+    }
     this.encodeService
-      .encode(this.selectedAlgorithm, this.name)
+      .encode(this.f.selectedAlgorithm.value, this.f.name.value)
       .subscribe((data) => {
-        console.log(data);
         this.encodedText = data;
       });
   }

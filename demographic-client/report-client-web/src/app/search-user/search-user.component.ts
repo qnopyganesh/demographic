@@ -11,15 +11,15 @@ export class SearchUserComponent implements OnInit {
 
   public userLocationZoom = 15;
   public userLocationCenter: google.maps.LatLngLiteral;
-
+  submitted = false;
   firstName: String = "";
   lastName: String = "";
-  emailId:string = "None";
-  dob:string = "None";
-  phonenumber:string = "None";
-  address:string = "None";
-  showMore:boolean=true;
-  rows = []
+  emailId: string = "None";
+  dob: string = "None";
+  phonenumber: string = "None";
+  address: string = "None";
+  showMore: boolean = true;
+  rows = [];
 
   user: any;
   ngOnInit(): void {
@@ -32,37 +32,48 @@ export class SearchUserComponent implements OnInit {
   }
 
   getUserDetails() {
+    this.submitted = true;
+    console.log(this.firstName);
+    if (this.firstName == "" || this.lastName == "") {
+      return;
+    }
     this.encodeService
-      .fetchUserDetails(this.firstName, this.lastName,this.address,this.dob,this.phonenumber,this.emailId)
+      .fetchUserDetails(
+        this.firstName,
+        this.lastName,
+        this.address,
+        this.dob,
+        this.phonenumber,
+        this.emailId
+      )
       .subscribe((data) => {
         this.user = data;
         this.userLocationCenter = {
           lat: this.user.latitude,
           lng: this.user.longitude,
         };
-        let nameEncoded:[string]= JSON.parse(this.user.firstnameEncoded);
-        let snameEncoded :[string]= JSON.parse(this.user.lastnameEncoded);
+        let nameEncoded: [string] = JSON.parse(this.user.firstnameEncoded);
+        let snameEncoded: [string] = JSON.parse(this.user.lastnameEncoded);
         console.log(data);
         console.log(nameEncoded);
         let size = nameEncoded.length;
-        for(let i=0;i<size;i++){
+        for (let i = 0; i < size; i++) {
           let temp = nameEncoded[i].split(":");
           let temp1 = snameEncoded[i].split(":");
-          this.rows.push([temp[0],temp[1],temp1[1]]);
+          this.rows.push([temp[0], temp[1], temp1[1]]);
         }
       });
   }
 
-  showOptionalFields(){
-    this.showMore=!this.showMore;
+  showOptionalFields() {
+    this.showMore = !this.showMore;
   }
 
-  hideOptionalFields(){
-    this.showMore=!this.showMore;
+  hideOptionalFields() {
+    this.showMore = !this.showMore;
   }
 
-  displaydate(){
+  displaydate() {
     console.log(this.dob);
   }
 }
-

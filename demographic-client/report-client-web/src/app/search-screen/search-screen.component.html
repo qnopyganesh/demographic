@@ -7,12 +7,17 @@
     <div class="search">
       <div class="w-100">
         <div class="form-group selectBox mr-2">
-          <label for="basicSelect">Select Algorithm  <span class="inputRequired">*</span></label>
+          <label for="basicSelect"
+            >Select Algorithm <span class="inputRequired">*</span></label
+          >
           <div class="input1">
             <select
               id="basicSelect"
               class="form-control"
               [(ngModel)]="selectedAlgorithm"
+              [ngClass]="{
+                'is-invalid': submitted1 && selectedAlgorithm == ''
+              }"
             >
               <option
                 *ngFor="let algorithm of algorithms"
@@ -21,17 +26,28 @@
                 {{ algorithm.value }}
               </option>
             </select>
+            <div
+              *ngIf="submitted1 && selectedAlgorithm == ''"
+              class="invalid-feedback"
+            >
+              <div *ngIf="selectedAlgorithm == ''">Input is required</div>
+            </div>
           </div>
         </div>
       </div>
       <div class="w-100">
         <div class="form-group selectBox mr-2">
-          <label for="basicSelect">Select Algorithm  <span class="inputRequired">*</span></label>
+          <label for="basicSelect"
+            >Select Algorithm <span class="inputRequired">*</span></label
+          >
           <div class="input1">
             <select
               id="basicSelect"
               class="form-control"
               [(ngModel)]="selectedlastNameAlgorithm"
+              [ngClass]="{
+                'is-invalid': submitted2 && selectedlastNameAlgorithm == ''
+              }"
             >
               <option
                 *ngFor="let algorithm of algorithms"
@@ -40,6 +56,14 @@
                 {{ algorithm.value }}
               </option>
             </select>
+            <div
+              *ngIf="submitted2 && selectedlastNameAlgorithm == ''"
+              class="invalid-feedback"
+            >
+              <div *ngIf="selectedlastNameAlgorithm == ''">
+                Input is required
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -47,14 +71,22 @@
 
     <div class="search">
       <div class="name">
-        <label for="basicInput">Enter Name <span class="inputRequired">*</span></label>
+        <label for="basicInput"
+          >Enter Name <span class="inputRequired">*</span></label
+        >
         <input
           type="text"
           class="form-control"
           id="basicInput"
           placeholder="FirstName"
           [(ngModel)]="fnameValue"
+          [ngClass]="{
+            'is-invalid': submitted1 && fnameValue == ''
+          }"
         />
+        <div *ngIf="submitted1 && fnameValue == ''" class="invalid-feedback">
+          <div *ngIf="fnameValue == ''">Input is required</div>
+        </div>
         <div class="my-2">
           <button
             type="button"
@@ -67,7 +99,7 @@
         </div>
         <div class="shadow p-3 mb-5 bg-white rounded" *ngIf="fname.length > 0">
           <div class="card-title">
-            <h2>First Name </h2>
+            <h2>First Name</h2>
           </div>
           <div class="table-responsive">
             <table class="table">
@@ -94,14 +126,22 @@
       </div>
 
       <div class="lastName">
-        <label for="basicInput">Enter Name  <span class="inputRequired">*</span></label>
+        <label for="basicInput"
+          >Enter Name <span class="inputRequired">*</span></label
+        >
         <input
           type="text"
           class="form-control"
           id="basicInput"
           placeholder="LastName"
           [(ngModel)]="snameValue"
+          [ngClass]="{
+            'is-invalid': submitted2 && snameValue == ''
+          }"
         />
+        <div *ngIf="submitted2 && snameValue == ''" class="invalid-feedback">
+          <div *ngIf="snameValue == ''">Input is required</div>
+        </div>
         <div class="my-2">
           <button
             type="button"
@@ -112,9 +152,10 @@
             Search
           </button>
         </div>
+
         <div class="shadow p-3 mb-5 bg-white rounded" *ngIf="sname.length > 0">
           <div class="card-title">
-            <h2>Last Name </h2>
+            <h2>Last Name</h2>
           </div>
           <div class="table-responsive" *ngIf="sname.length > 0">
             <table class="table">

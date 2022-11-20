@@ -5,7 +5,9 @@
     </div>
     <div class="search">
       <div class="name">
-        <label for="basicInput">Enter Name<span class="inputRequired">*</span></label>
+        <label for="basicInput"
+          >Enter Name<span class="inputRequired">*</span></label
+        >
 
         <input
           type="text"
@@ -13,23 +15,36 @@
           id="basicInput"
           placeholder="FirstName"
           [(ngModel)]="firstName"
-          required
+          [ngClass]="{
+            'is-invalid': submitted && firstName == ''
+          }"
         />
+        <div *ngIf="submitted && firstName == ''" class="invalid-feedback">
+          <div *ngIf="firstName == ''">Input is required</div>
+        </div>
       </div>
 
       <div class="lastName">
-        <label for="basicInput">Enter LastName<span class="inputRequired">*</span></label>
+        <label for="basicInput"
+          >Enter LastName<span class="inputRequired">*</span></label
+        >
         <input
           type="text"
           class="form-control"
           id="basicInput"
           placeholder="lastName"
           [(ngModel)]="lastName"
+          [ngClass]="{
+            'is-invalid': submitted && lastName == ''
+          }"
         />
+        <div *ngIf="submitted && lastName == ''" class="invalid-feedback">
+          <div *ngIf="lastName == ''">Input is required</div>
+        </div>
       </div>
     </div>
 
-    <div *ngIf="showMore==false" >
+    <div *ngIf="showMore == false">
       <div class="search mt-2">
         <div class="name">
           <label for="basicInput">Enter Email</label>
@@ -43,9 +58,7 @@
           />
         </div>
         <div class="lastName">
-          <label for="basicInput">Enter Contact    
-            
-            Number</label>
+          <label for="basicInput">Enter Contact Number</label>
           <input
             type="text"
             class="form-control"
@@ -66,7 +79,7 @@
             id="basicInput"
             placeholder="DD/MM/YYYY"
             [(ngModel)]="dob"
-            (change) = "displaydate()"
+            (change)="displaydate()"
           />
         </div>
         <div class="lastName">
@@ -96,9 +109,7 @@
         class="btn btn-primary ml-2"
         (click)="showOptionalFields()"
         rippleEffect
-
-        *ngIf="showMore==true"
-        
+        *ngIf="showMore == true"
       >
         +
       </button>
@@ -106,9 +117,8 @@
         type="button"
         class="btn btn-primary ml-2"
         (click)="hideOptionalFields()"
-        *ngIf="showMore==false"
+        *ngIf="showMore == false"
         rippleEffect
-        
       >
         -
       </button>
@@ -135,7 +145,9 @@
             <div>{{ this.user.gender }}</div>
           </div>
           <div class="user-contact d-flex justify-content-between mx-3">
-            <h4>Contact No. <span data-feather="phone-call" class="mr-25"></span></h4>
+            <h4>
+              Contact No. <span data-feather="phone-call" class="mr-25"></span>
+            </h4>
             <div>{{ this.user.contact }}</div>
           </div>
           <div class="table-responsive">
