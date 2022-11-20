@@ -17,10 +17,10 @@ public class LoginServiceImpl implements LoginService {
         return user.getPassword().compareTo(password) == 0 ?user:null;
     }
 
-    public Login signUp(String username, String password) {
+    public Login signUp(String username, String password,String contact, String address, String firstname,String lastname , String dob) {
         Login user = loginRepo.findByUsername(username);
         if (user == null) {
-            user = new Login(username, password);
+            user = new Login(username, password,contact,address,firstname,lastname,dob);
             loginRepo.save(user);
             return user;
         }

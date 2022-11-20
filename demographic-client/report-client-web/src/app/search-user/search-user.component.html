@@ -123,63 +123,75 @@
         -
       </button>
     </div>
-
-    <div class="search" *ngIf="this.user">
-      <div class="name">
-        <div class="card details">
-          <h3 class="user-fullname d-flex justify-content-center">
-            {{ this.user.firstname + " " + this.user.lastname }}
-          </h3>
-          <div class="user-address d-flex justify-content-between mx-3">
-            <h4>Address <span data-feather="map" class="mr-25"></span></h4>
-            <div>{{ this.user.address }}</div>
-          </div>
-          <div class="user-dob d-flex justify-content-between mx-3">
-            <h4>
-              Date of Birth <span data-feather="calendar" class="mr-25"></span>
-            </h4>
-            <div>{{ this.user.dob }}</div>
-          </div>
-          <div class="user-gender d-flex justify-content-between mx-3">
-            <h4>Gender <span data-feather="user" class="mr-25"></span></h4>
-            <div>{{ this.user.gender }}</div>
-          </div>
-          <div class="user-contact d-flex justify-content-between mx-3">
-            <h4>
-              Contact No. <span data-feather="phone-call" class="mr-25"></span>
-            </h4>
-            <div>{{ this.user.contact }}</div>
-          </div>
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Algorithm</th>
-                  <th>First Name Encoded</th>
-                  <th>Last Name Encoded</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let n of rows">
-                  <td>{{ n[0]}}</td>
-                  <td>{{ n[1] }}</td>
-                  <td>{{ n[2] }}</td>
-                </tr>
-              </tbody>
-            </table>
+    <div  *ngIf = "this.user ; then search else noresult"></div>
+    <ng-template #search>
+      <div class="search" *ngIf="this.user">
+        <div class="name">
+          <div class="card details">
+            <h3 class="user-fullname d-flex justify-content-center">
+              {{ this.user.firstname + " " + this.user.lastname }}
+            </h3>
+            <div class="user-address d-flex justify-content-between mx-3">
+              <h4>Address <span data-feather="map" class="mr-25"></span></h4>
+              <div>{{ this.user.address }}</div>
+            </div>
+            <div class="user-dob d-flex justify-content-between mx-3">
+              <h4>
+                Date of Birth <span data-feather="calendar" class="mr-25"></span>
+              </h4>
+              <div>{{ this.user.dob }}</div>
+            </div>
+            <div class="user-gender d-flex justify-content-between mx-3">
+              <h4>Gender <span data-feather="user" class="mr-25"></span></h4>
+              <div>{{ this.user.gender }}</div>
+            </div>
+            <div class="user-contact d-flex justify-content-between mx-3">
+              <h4>
+                Contact No. <span data-feather="phone-call" class="mr-25"></span>
+              </h4>
+              <div>{{ this.user.contact }}</div>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Algorithm</th>
+                    <th>First Name Encoded</th>
+                    <th>Last Name Encoded</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let n of rows">
+                    <td>{{ n[0]}}</td>
+                    <td>{{ n[1] }}</td>
+                    <td>{{ n[2] }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
+        <div class="name">
+          <google-map
+            [zoom]="userLocationZoom"
+            height="400px"
+            width="100%"
+            [center]="userLocationCenter"
+          >
+            <map-marker [position]="userLocationCenter"></map-marker>
+          </google-map>
+        </div>
       </div>
-      <div class="name">
-        <google-map
-          [zoom]="userLocationZoom"
-          height="400px"
-          width="100%"
-          [center]="userLocationCenter"
-        >
-          <map-marker [position]="userLocationCenter"></map-marker>
-        </google-map>
-      </div>
-    </div>
+    </ng-template>
+   
+    <ng-template #noresult>
+        <div class="name" *ngIf = "this.submitted">
+          <div class="card details">
+            <h3 class="user-fullname d-flex justify-content-center">
+              No Result Found
+            </h3>
+          </div>
+        </div>
+      </ng-template>
   </div>
 </div>

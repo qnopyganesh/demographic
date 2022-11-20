@@ -46,7 +46,10 @@ export class SearchUserComponent implements OnInit {
         this.phonenumber,
         this.emailId
       )
-      .subscribe((data) => {
+      .subscribe((data:[]) => {
+        if(data.length == 0){
+          return ;
+        } 
         this.user = data;
         this.userLocationCenter = {
           lat: this.user.latitude,

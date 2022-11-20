@@ -21,6 +21,6 @@ public interface NameIndexService {
 
     public void saveUserDetails(MultipartFile file);
 
-    public User fetchUserDetails(String firstname, String lastname,String emailId, String phonenumber, String dob);
+    public List<User> fetchUserDetails(String firstname, String lastname,String emailId, String phonenumber, String dob);
 
 }

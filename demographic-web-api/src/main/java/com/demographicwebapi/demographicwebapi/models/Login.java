@@ -16,19 +16,35 @@ public class Login {
     @Column(name = "username")
     private String username;
 
-    // @Column(name = "email")
-    // private String email;
-
     @Column(name = "password")
     private String password;
+
+    @Column(name = "contact")
+    private String contact;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "firstname")
+    private String firstname;
+
+    @Column(name = "lastname")
+    private String lastname;
+
+    @Column(name = "dob")
+    private String dob;
 
     public Login() {
     }
 
-    public Login(String username, String password) {
+    public Login(String username, String password, String contact, String address, String firstname, String lastname,
+            String dob) {
         this.username = username;
-
         this.password = password;
+        this.contact = contact;
+        this.address = address;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
 }

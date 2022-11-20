@@ -76,11 +76,25 @@ export class AuthRegisterV2Component implements OnInit {
    */
   onSubmit() {
     this.submitted = true;
+    this.loading = true;
+    
 
     // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
+
+    this._authenticationService.signup(this.f.emailId.value,this.f.password.value,this.f.contactnumber.value,this.f.address.value,this.f.firstname.value,this.f.lastname.value,this.f.dateofbirth.value).
+    pipe(first())
+    .subscribe(
+      (data) =>{
+        this._router.navigate(["/"]);
+      },
+      (error) => {
+        this.error = error;
+        this.loading = false;
+      }
+    );
 
   }
 
@@ -94,10 +108,11 @@ export class AuthRegisterV2Component implements OnInit {
     this.registerForm = this._formBuilder.group({
       lastname: ['', [Validators.required]],
       firstname:['',[Validators.required]],
-      email: ['', [Validators.required]],
       password: ['', Validators.required],
       dateofbirth:['',[Validators.required]],
-      address:['',[Validators.required]]
+      address:['',[Validators.required]],
+      emailId:['',[Validators.required]],
+      contactnumber:['',[Validators.required]]
     });
 
     // Subscribe to config changes
