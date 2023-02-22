@@ -1,0 +1,88 @@
+pipeline {
+
+  agent any
+  options {
+    // This is required if you want to clean before build
+    skipDefaultCheckout(true)
+  }
+  tools {
+    maven 'maven'
+  }
+  stages {
+    // Specify various stage with in stages
+
+    // stage 1. Clone
+    stage('Git') {
+      steps {
+        sh 'pwd'
+        echo ' Cloning Service ......'
+        sh 'rm -rf demographic || true'
+        sh 'git clone --branch main https://github.com/qnopyganesh/demographic.git'
+        echo ' Cloning Service completed'
+      }
+    }
+
+    // Stage2 : Build
+    stage('MavenBuild') {
+      steps {
+        echo 'Cloning Service Build ......'
+        sh 'pwd'
+        sh 'mvn clean install package -f ./demographic-web-api/pom.xml'
+        echo 'Cloning Service  Build completed'
+
+    
+
+      }
+    }
+ 
+ 
+    
+    stage('DockerImageBuild') {
+	
+      steps {
+        echo 'Cloning DockerImageBuild  ......'
+        sh 'pwd'
+
+        sh 'cp -r ./demographic-web-api/target/*.jar ./jenkin/docker/app.jar'
+        
+        sh 'docker rm -f service || true'
+	sleepFun()
+        sh 'docker build -t service/img ./jenkin/docker'
+        echo 'Cloning Build ImageBuild Successfully  ......'
+
+      }
+    }
+     stage('DockerImageDeployed') {
+
+      steps {
+        echo 'Cloning DockerImageDeploy  ......'
+        sh 'docker run --restart unless-stopped --name service  -d  -p 8084:9001 service/img '
+        echo 'Cloning Build DockerImageDeploy Successfully  ......'
+
+      }
+    }
+    	  
+   
+
+  }
+  post {
+    // Clean after build
+    always {
+      cleanWs(cleanWhenNotBuilt: false,
+        deleteDirs: true,
+        disableDeferredWipeout: true,
+        notFailBuild: true,
+        patterns: [
+          [pattern: '.gitignore', type: 'INCLUDE'],
+          [pattern: '.propsfile', type: 'EXCLUDE']
+        ])
+    }
+  }
+}
+
+@NonCPS
+def sleepFun() {
+  echo "Start"
+  sleep(5)
+  echo "Stop"
+}

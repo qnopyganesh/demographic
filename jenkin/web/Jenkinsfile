@@ -1,0 +1,136 @@
+pipeline {
+
+  agent any
+  options {
+    // This is required if you want to clean before build
+    skipDefaultCheckout(true)
+  }
+  tools {
+    maven 'maven'
+  }
+  stages {
+    // Specify various stage with in stages
+
+    // stage 1. Clone
+    stage('Git') {
+      steps {
+        echo ' Cloning ReactWebServices ......'
+        sh 'pwd'
+        sh 'rm -rf Qnopy-OrderingSystemAngularWebUI || true'
+        sh 'git clone --branch main https://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@github.com/RealQnopy/Qnopy-OrderingSystemAngularWebUI.git'
+        echo ' Cloning Qnopy-OrderingSystemAngularWebUI completed'
+      }
+    }
+
+    // Stage2 : Build
+    stage('AngulerBuild') {
+      steps {
+        echo 'Qnopy-OrderingSystemAngularWebUI Build ......'
+
+        sh 'pwd'
+             sh  """
+			 cd  /var/lib/jenkins/workspace/StagingQnopyOrderWebUI/Qnopy-OrderingSystemAngularWebUI/QnopyOrderingSystemAngularWebUI
+			 pwd 
+			 npm config set legacy-peer-deps true
+			 npm install --save --legacy-peer-deps
+			 ng build --prod --build-optimizer --output-hashing=none --configuration=staging --output-path=dist/staging
+		    """
+	
+        sh 'pwd'
+
+        echo 'Cloning qnopyAngulerWebUINew Build completed'
+
+      }
+    }
+
+    stage('removeDockerContainer') {
+      steps {
+
+        sh 'pwd'
+        echo 'removing docker ...............'
+
+        sh 'docker rm -f qnopy-ordering-anguler || true'
+
+        sleepFun()
+        echo 'removing docker completed'
+	  sh 'pwd'
+      }
+    
+    }
+    // Stage3 : Build
+    stage('DockerImageBuild') {
+
+      steps {
+        echo 'Cloning DockerImageBuild  ......'
+        sh 'pwd'
+
+         sh  """
+		         cd /var/lib/jenkins/workspace/StagingQnopyOrderWebUI/Qnopy-OrderingSystemAngularWebUI/QnopyOrderingSystemAngularWebUI/docker
+			 cp  -rf /var/lib/jenkins/workspace/StagingQnopyOrderWebUI/Qnopy-OrderingSystemAngularWebUI/QnopyOrderingSystemAngularWebUI/dist/staging ./prod
+			  cp  -rf /var/lib/jenkins/workspace/StagingQnopyOrderWebUI/Qnopy-OrderingSystemAngularWebUI/QnopyOrderingSystemAngularWebUI/images ./prod/images
+		 	  pwd 
+			  docker build -t qnopy-ordering/anguler /var/lib/jenkins/workspace/StagingQnopyOrderWebUI/Qnopy-OrderingSystemAngularWebUI/QnopyOrderingSystemAngularWebUI/docker
+			"""
+	 
+
+        echo 'Cloning Build ImageBuild Successfully  ......'
+
+      }
+    }
+ // Stage3 : Build
+    stage('DockerImageDeployed') {
+ 
+      steps {
+        echo 'Cloning DockerImageDeploy  ......'
+        sh 'docker run --restart unless-stopped --name qnopy-ordering-anguler  -d  -p 8085:80 qnopy-ordering/anguler '
+        echo 'Cloning Build DockerImageDeploy Successfully  ......'
+
+      }
+    }
+  stage('DockerImageSave') {
+
+      steps {
+	script {	 
+	  FILE_NAME =  "qnopy_ordering_anguler_" + java.time.format.DateTimeFormatter.ofPattern("yyyy_MMM_dd_HH_mm_ss").format(java.time.LocalDateTime.now()) +".tar"
+	}
+        echo 'Cloning DockerImagesave  ......'
+        sh 'pwd'
+
+         sh  """
+		      echo ${FILE_NAME}
+			 docker save -o ${FILE_NAME} qnopy-ordering/anguler
+			 aws s3 cp ${FILE_NAME} "s3://aserverwar/prod/${FILE_NAME}"		
+			 echo "save to s3://aserverwar/staging/${FILE_NAME}"
+			 rm ${FILE_NAME}
+			 echo "For rollback \n  aws s3 cp s3://aserverwar/staging/${FILE_NAME} ${FILE_NAME}  \n docker rm -f qnopy-ordering-anguler || true \n docker load -i ${FILE_NAME} \n docker run --restart unless-stopped --name qnopy-ordering-anguler  -d  -p 8085:80 qnopy-ordering/anguler"
+
+	 """
+	 
+
+        echo 'Cloning Build Image save Successfully  ......'
+
+      }
+    }	  
+  
+  }
+  post {
+    // Clean after build
+    always {
+      cleanWs(cleanWhenNotBuilt: false,
+        deleteDirs: true,
+        disableDeferredWipeout: true,
+        notFailBuild: true,
+        patterns: [
+          [pattern: '.gitignore', type: 'INCLUDE'],
+          [pattern: '.propsfile', type: 'EXCLUDE']
+        ])
+    }
+  }
+}
+
+@NonCPS
+def sleepFun() {
+  echo "Start"
+  sleep(5)
+  echo "Stop"
+}
