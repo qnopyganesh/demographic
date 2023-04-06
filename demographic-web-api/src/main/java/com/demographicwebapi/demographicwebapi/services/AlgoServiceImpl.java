@@ -35,8 +35,10 @@ public class AlgoServiceImpl implements AlgoService {
         algoName = algoName.toLowerCase();
 
         if (algoName.equals("metaphone3")){
-            Metaphone3 encoder = new Metaphone3(name);
-            encoder.Encode();
+            Metaphone3 encoder = new Metaphone3();
+            encoder.SetEncodeVowels(true);
+            encoder.SetEncodeExact(true);
+            encoder.SetWord(name);
             encodedName = encoder.GetMetaph();
         }
 
