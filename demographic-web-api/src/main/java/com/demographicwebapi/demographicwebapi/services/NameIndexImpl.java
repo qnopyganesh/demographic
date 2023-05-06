@@ -165,7 +165,7 @@ public class NameIndexImpl implements NameIndexService {
                 }
                 user.setFirstnameEncoded(gson.toJson(fnameEncoded).toString());
                 user.setLastnameEncoded(gson.toJson(snameEncoded).toString());
-                if (userdao.findByFirstnameAndLastname(user.getFirstname(),user.getLastname()) == null){
+                if (userdao.findByFirstnameAndLastname(user.getFirstname(),user.getLastname()).size() == 0){
                     userdao.save(user);
                 }
 
